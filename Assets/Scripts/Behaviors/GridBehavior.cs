@@ -25,11 +25,6 @@ public class GridBehavior : MonoBehaviour {
 				GameSquare square = new GameSquare();
 				square.attachedToGrid = true;
 				sqBehavior.UpdateWithGameSquare(square);
-				//GameObject newObj = Instantiate(myObj);
-				//newObj.transform.SetParent(obj.transform);
-				//RectTransform rt = newObj.GetComponent<RectTransform>();
-				//rt.sizeDelta = new Vector2(size - 2, size - 2);
-				//newObj.transform.localPosition = new Vector2(1, 1);
 			}
 		}
 	}

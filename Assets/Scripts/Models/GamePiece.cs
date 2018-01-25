@@ -2,5 +2,5 @@
 using System.Collections.Generic;
 
 public class GamePiece {
-	public Dictionary<KeyValuePair<int, int>, GameSquare> squareInfo;
+	public Dictionary<BoardSquareThing, GameSquare> squareInfo;
 }
