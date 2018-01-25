@@ -14,6 +14,7 @@ public class DropHandler : MonoBehaviour, IDropHandler {
 	}
 
 	public void OnDrop(PointerEventData eventData) {
+		Debug.Log("got here!!!");
 		if (!item) {
 			DragHandler.draggedItem.transform.SetParent(transform);
 		}

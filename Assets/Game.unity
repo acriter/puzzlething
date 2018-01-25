@@ -166,6 +166,7 @@ GameObject:
   - component: {fileID: 1018371154}
   - component: {fileID: 1018371153}
   - component: {fileID: 1018371156}
+  - component: {fileID: 1018371155}
   m_Layer: 5
   m_Name: Tile Panel
   m_TagString: Untagged
@@ -224,6 +225,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1018371151}
+--- !u!225 &1018371155
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1018371151}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &1018371156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -330,6 +342,7 @@ GameObject:
   - component: {fileID: 1485044532}
   - component: {fileID: 1485044531}
   - component: {fileID: 1485044534}
+  - component: {fileID: 1485044533}
   m_Layer: 5
   m_Name: Game Board
   m_TagString: Untagged
@@ -388,6 +401,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1485044529}
+--- !u!225 &1485044533
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1485044529}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &1485044534
 MonoBehaviour:
   m_ObjectHideFlags: 0

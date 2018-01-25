@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class BoardSquareBehavior : MonoBehaviour {
+public class BoardSquareBehavior : MonoBehaviour, IDropHandler {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;
 
 	private GameSquare square;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
+
+	public void OnDrop(PointerEventData eventData) {
+		if (DragHandler.draggedItem != null) {
+			DragHandler.draggedItem.transform.SetParent(transform);
+		}
+	}
 
 	public void UpdateWithGameSquare(GameSquare square) {
 		this.square = square;

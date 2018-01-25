@@ -22,31 +22,13 @@ public class TileBankBehavior : MonoBehaviour {
 		piece.squareInfo = new Dictionary<KeyValuePair<int, int>, GameSquare>();
 		KeyValuePair<int, int> kvp = new KeyValuePair<int, int>(0, 0);
 		GameSquare sq = new GameSquare();
+		sq.displayedNumber = 7;
 		piece.squareInfo.Add(kvp, sq);
-
-		kvp = new KeyValuePair<int, int>(0, 1);
-		sq = new GameSquare();
-		sq.displayedNumber = 5;
-		piece.squareInfo.Add(kvp, sq);
-		gameObj.GetComponent<TileBehavior>().SetUpWithGamePiece(piece);
-
-
-		gameObj = new GameObject("Tile Behavior");
-		gameObj.transform.SetParent(transform);
-		gameObj.AddComponent<TileBehavior>();
-
-		piece = new GamePiece();
-		piece.squareInfo = new Dictionary<KeyValuePair<int, int>, GameSquare>();
-		kvp = new KeyValuePair<int, int>(0, 0);
-		sq = new GameSquare();
-		sq.blockedTop = true;
-		piece.squareInfo.Add(kvp, sq);
-
-		kvp = new KeyValuePair<int, int>(1, 0);
-		sq = new GameSquare();
-		sq.blockedLeft = true;
-		sq.displayedNumber = 3;
-		piece.squareInfo.Add(kvp, sq);
+		
+		KeyValuePair<int, int> kvp2 = new KeyValuePair<int, int>(0, 1);
+		GameSquare sq2 = new GameSquare();
+		sq2.displayedNumber = 5;
+		piece.squareInfo.Add(kvp2, sq2);
 		gameObj.GetComponent<TileBehavior>().SetUpWithGamePiece(piece);
 	}
 }
