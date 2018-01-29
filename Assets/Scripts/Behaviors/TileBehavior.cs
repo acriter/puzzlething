@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 
 public class TileBehavior : DragHandler {
 
-	public GamePiece piece;
+	public Tile piece;
 
 	public void Awake() {
 		//used for drag handler
 		gameObject.AddComponent<CanvasGroup>();
 	}
 
-	public void SetUpWithGamePiece(GamePiece piece) {
+	public void SetUpWithGamePiece(Tile piece) {
 		this.piece = piece;
 
 		foreach (Coordinate pair in piece.squareInfo.Keys) {

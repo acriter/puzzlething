@@ -8,11 +8,13 @@ public class BoardSquareBehavior : MonoBehaviour {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;
 
-	private GameSquare square;
+	private GameCell square;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
 
-	public void UpdateWithGameSquare(GameSquare square) {
+	public TileBehavior parentTile;
+
+	public void UpdateWithGameSquare(GameCell square) {
 		this.square = square;
 
 		Color c = bottomImage.color;

@@ -8,6 +8,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	public GameObject myObj;
 
 	private GameBoard gameBoard;
+	private Dictionary<Coordinate, GridBoardSquareBehavior> gameBoardDictionary;
 
 	private GameObject currentlyDraggedObj;
 	
@@ -52,7 +53,8 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 			return false;
 		}
 
-		GamePiece piece = tileBeh.piece;
+		//TODO: move this to the model layer
+		Tile piece = tileBeh.piece;
 		foreach(Coordinate t in piece.squareInfo.Keys) {
 			Coordinate newCoord = new Coordinate(x + t.row, y + t.column);
 			if (!this.gameBoard.ContainsCoordinate(newCoord)) {
@@ -60,10 +62,8 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 			}
 		}
 
-		foreach (Coordinate t in piece.squareInfo.Keys) {
-			Coordinate newCoord = new Coordinate(x + t.row, y + t.column);
-			this.gameBoard.UpdateBoardAtSquare(newCoord, piece.squareInfo[t]);
-		}
+		this.gameBoard.MoveTileToSquare(piece, new Coordinate(x, y));
+
 		return true;
 	}
 
@@ -83,27 +83,14 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	private void SetUpBoardSquares() {
 		float size = BoardSquareBehavior.TILE_SIZE;
 		foreach (Coordinate coord in this.gameBoard.BoardMap.Keys) {
-			GameObject obj = Resources.Load("Prefabs/BoardSquare") as GameObject;
+			GameObject obj = Resources.Load("Prefabs/GridBoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
-			BoardSquareBehavior sqBehavior = obj.GetComponent<BoardSquareBehavior>();
-			GameSquare sq = this.gameBoard.BoardMap[coord];
+			GridBoardSquareBehavior sqBehavior = obj.GetComponent<GridBoardSquareBehavior>();
+			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
 			sqBehavior.UpdateWithGameSquare(sq);
 		}
-		//for (int i = 0; i < gridWidth; ++i) {
-		//	for (int j = 0; j < gridHeight; ++j) {
-		//		GameObject obj = Resources.Load("Prefabs/BoardSquare") as GameObject;
-		//		GameObject instantiatedObj = GameObject.Instantiate(obj);
-		//		instantiatedObj.transform.SetParent(transform);
-		//		instantiatedObj.transform.localPosition = new Vector2(i * size, j * size);
-
-		//		BoardSquareBehavior sqBehavior = obj.GetComponent<BoardSquareBehavior>();
-		//		GameSquare square = new GameSquare();
-		//		square.attachedToGrid = true;
-		//		sqBehavior.UpdateWithGameSquare(square);
-		//	}
-		//}
 	}
 }
