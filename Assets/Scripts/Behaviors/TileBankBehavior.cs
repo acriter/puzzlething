@@ -15,15 +15,15 @@ public class TileBankBehavior : MonoBehaviour {
 		TileBehavior beh = gameObj.AddComponent<TileBehavior>();
 
 		GamePiece piece = new GamePiece();
-		piece.squareInfo = new Dictionary<BoardSquareThing, GameSquare>();
-		BoardSquareThing bst = new BoardSquareThing();
+		piece.squareInfo = new Dictionary<Coordinate, GameSquare>();
+		Coordinate bst = new Coordinate();
 		bst.row = 0;
 		bst.column = 0;
 		GameSquare sq = new GameSquare();
 		sq.displayedNumber = 7;
 		piece.squareInfo.Add(bst, sq);
 
-		BoardSquareThing bst2 = new BoardSquareThing();
+		Coordinate bst2 = new Coordinate();
 		bst2.row = 0;
 		bst2.column = 1;
 		GameSquare sq2 = new GameSquare();
@@ -36,21 +36,21 @@ public class TileBankBehavior : MonoBehaviour {
 		gameObj2.transform.SetParent(transform);
 		TileBehavior beh2 = gameObj2.AddComponent<TileBehavior>();
 		GamePiece piece2 = new GamePiece();
-		piece2.squareInfo = new Dictionary<BoardSquareThing, GameSquare>();
-		BoardSquareThing bst3 = new BoardSquareThing();
+		piece2.squareInfo = new Dictionary<Coordinate, GameSquare>();
+		Coordinate bst3 = new Coordinate();
 		bst3.row = 0;
 		bst3.column = 0;
 		GameSquare sq3 = new GameSquare();
 		sq3.displayedNumber = 2;
 		piece2.squareInfo.Add(bst3, sq3);
 
-		BoardSquareThing bst4 = new BoardSquareThing();
+		Coordinate bst4 = new Coordinate();
 		bst4.row = 1;
 		bst4.column = 0;
 		GameSquare sq4 = new GameSquare();
 		piece2.squareInfo.Add(bst4, sq4);
 
-		BoardSquareThing bst5 = new BoardSquareThing();
+		Coordinate bst5 = new Coordinate();
 		bst5.row = 1;
 		bst5.column = 1;
 		GameSquare sq5 = new GameSquare();

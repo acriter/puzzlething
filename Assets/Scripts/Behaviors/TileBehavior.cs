@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class TileBehavior : DragHandler {
 
-	private GamePiece piece;
+	public GamePiece piece;
 
 	public void Awake() {
 		//used for drag handler
@@ -16,7 +16,7 @@ public class TileBehavior : DragHandler {
 	public void SetUpWithGamePiece(GamePiece piece) {
 		this.piece = piece;
 
-		foreach (BoardSquareThing pair in piece.squareInfo.Keys) {
+		foreach (Coordinate pair in piece.squareInfo.Keys) {
 			GameObject obj = Resources.Load("Prefabs/BoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
