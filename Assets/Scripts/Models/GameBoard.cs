@@ -38,9 +38,7 @@ public class GameBoard {
 	}
 
 	public void MoveTileToSquare(Tile t, Coordinate coord) {
-		if (!this.tileMap.ContainsKey(t)) {
-			this.tileMap.Add(t, coord);
-		} else {
+		if (this.tileMap.ContainsKey(t)) {
 			int tileRow = this.tileMap[t].row;
 			int tileCol = this.tileMap[t].column;
 			foreach (Coordinate co in t.squareInfo.Keys) {
@@ -55,5 +53,7 @@ public class GameBoard {
 			GameBoardSquare square = this.boardMap[c];
 			square.AddGameCell(t.squareInfo[co]);
 		}
+
+		this.tileMap[t] = coord;
 	}
 }

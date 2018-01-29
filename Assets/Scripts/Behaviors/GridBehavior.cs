@@ -42,12 +42,6 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	}
 
 	private bool ValidatePositionAndUpdateGrid(int x, int y) {
-		//currently this is only updating when a piece is dropped onto a square
-		// needs to also update when a piece is removed from a square
-
-		//every square needs to have a list of TileBehaviors touching that square. when OnDrop is called, update each square that has the dropped TileBehavior to remove it.
-		// then reupdate the squares the currently dragged TileBehavior actually landed on
-
 		TileBehavior tileBeh = currentlyDraggedObj.GetComponent<TileBehavior>();
 		if (tileBeh == null) {
 			return false;
