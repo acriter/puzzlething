@@ -30,5 +30,32 @@ public class TileBankBehavior : MonoBehaviour {
 		sq2.displayedNumber = 5;
 		piece.squareInfo.Add(bst2, sq2);
 		beh.SetUpWithGamePiece(piece);
+
+
+		GameObject gameObj2 = new GameObject("Tile Behavior 2");
+		gameObj2.transform.SetParent(transform);
+		TileBehavior beh2 = gameObj2.AddComponent<TileBehavior>();
+		GamePiece piece2 = new GamePiece();
+		piece2.squareInfo = new Dictionary<BoardSquareThing, GameSquare>();
+		BoardSquareThing bst3 = new BoardSquareThing();
+		bst3.row = 0;
+		bst3.column = 0;
+		GameSquare sq3 = new GameSquare();
+		sq3.displayedNumber = 2;
+		piece2.squareInfo.Add(bst3, sq3);
+
+		BoardSquareThing bst4 = new BoardSquareThing();
+		bst4.row = 1;
+		bst4.column = 0;
+		GameSquare sq4 = new GameSquare();
+		piece2.squareInfo.Add(bst4, sq4);
+
+		BoardSquareThing bst5 = new BoardSquareThing();
+		bst5.row = 1;
+		bst5.column = 1;
+		GameSquare sq5 = new GameSquare();
+		piece2.squareInfo.Add(bst5, sq5);
+
+		beh2.SetUpWithGamePiece(piece2);
 	}
 }
