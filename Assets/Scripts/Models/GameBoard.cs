@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class GameBoard {
 	private Dictionary<Coordinate, GameBoardSquare> boardMap;
@@ -56,4 +57,76 @@ public class GameBoard {
 
 		this.tileMap[t] = coord;
 	}
+
+	public Area AreaForSquare(Coordinate coord) {
+		Area area = new Area();
+
+		//keep track of explored cells - don't go in circles
+		List<GameCell> exploredCells = new List<GameCell>();
+
+		//keep track of cells we haven't fully explored
+		List<GameCell> cellStack = new List<GameCell>();
+		GameCell cell = this.boardMap[coord].TopCell;
+		int x = coord.row;
+		int y = coord.column;
+
+		bool keepGoing = true;
+		while (keepGoing) {
+			//first look left, then down, then right, then up
+			if (cell != null) {
+				area.AddCell(cell);
+				exploredCells.Add(cell);
+				cellStack.Add(cell);
+				if (!cell.blockedLeft) {
+					Coordinate left = new Coordinate(x - 1, y);
+					if (this.ContainsCoordinate(left)) {
+						if (!this.BoardMap[left].blockedRight && !exploredCells.Contains(this.BoardMap[left])) {
+							x -= 1;
+							cell = this.BoardMap[left].TopCell;
+						}
+					}
+				} else if (!cell.blockedBottom) {
+					Coordinate bottom = new Coordinate(x, y - 1);
+					if (this.ContainsCoordinate(bottom)) {
+						if (!this.BoardMap[bottom].blockedTop && !exploredCells.Contains(this.BoardMap[bottom])) {
+							y -= 1;
+							cell = this.BoardMap[bottom].TopCell;
+						}
+					}
+				} else if (!cell.blockedRight) {
+					Coordinate right = new Coordinate(x + 1, y);
+					if (this.ContainsCoordinate(right)) {
+						if (!this.BoardMap[right].blockedLeft && !exploredCells.Contains(this.BoardMap[right])) {
+							x += 1;
+							cell = this.BoardMap[right].TopCell;
+						}
+					}
+				} else if (!cell.blockedTop) {
+					Coordinate top = new Coordinate(x, y + 1);
+					if (this.ContainsCoordinate(top)) {
+						if (!this.BoardMap[top].blockedBottom && !exploredCells.Contains(this.BoardMap[top])) {
+							y += 1;
+							cell = this.BoardMap[top].TopCell;
+						}
+					}
+				} else {
+					cellStack.RemoveAt(cellStack.Count - 1);
+					if (cellStack.Count == 0) {
+						keepGoing = false;
+					} else {
+						cell = cellStack[cellStack.Count - 1];
+					}
+				}
+			} else {
+				Debug.Log("ran into a null cell... not sure what to do");
+			}
+		}
+
+		return area;
+	}
+
+	//public Area AreaForGameCell(GameCell cell) {
+	//	List<GameCell> exploredCells = new List<GameCell>();
+	//	return null;
+	//}
 }

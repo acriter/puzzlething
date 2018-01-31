@@ -420,8 +420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee6a6a09a8526e42a64368516c83fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 4
-  gridHeight: 7
   myObj: {fileID: 1055317855820140, guid: 64fa378f70cbc9a4fb9d6b5b8f2944ae, type: 2}
 --- !u!1 &1654179816
 GameObject:
