@@ -20,14 +20,17 @@ public class TileBankBehavior : MonoBehaviour {
 		bst.row = 0;
 		bst.column = 0;
 		GameCell sq = new GameCell();
-		sq.displayedNumber = 7;
+		sq.displayedNumber = 0;
+		sq.blockedTop = false;
 		piece.squareInfo.Add(bst, sq);
 
 		Coordinate bst2 = new Coordinate();
 		bst2.row = 0;
 		bst2.column = 1;
 		GameCell sq2 = new GameCell();
-		sq2.displayedNumber = 5;
+		sq2.displayedNumber = 0;
+		sq2.blockedBottom = false;
+		sq2.blockedLeft = false;
 		piece.squareInfo.Add(bst2, sq2);
 		beh.SetUpWithGamePiece(piece);
 
@@ -41,19 +44,23 @@ public class TileBankBehavior : MonoBehaviour {
 		bst3.row = 0;
 		bst3.column = 0;
 		GameCell sq3 = new GameCell();
-		sq3.displayedNumber = 2;
+		sq3.displayedNumber = 3;
+		sq3.blockedRight = false;
 		piece2.squareInfo.Add(bst3, sq3);
 
 		Coordinate bst4 = new Coordinate();
 		bst4.row = 1;
 		bst4.column = 0;
 		GameCell sq4 = new GameCell();
+		sq4.blockedLeft = false;
+		sq4.blockedTop = false;
 		piece2.squareInfo.Add(bst4, sq4);
 
 		Coordinate bst5 = new Coordinate();
 		bst5.row = 1;
 		bst5.column = 1;
 		GameCell sq5 = new GameCell();
+		sq5.blockedBottom = false;
 		piece2.squareInfo.Add(bst5, sq5);
 
 		beh2.SetUpWithGamePiece(piece2);

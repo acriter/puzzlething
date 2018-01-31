@@ -15,27 +15,31 @@ public class BoardSquareBehavior : MonoBehaviour {
 	public TileBehavior parentTile;
 
 	public void UpdateWithGameSquare(GameCell square) {
-		this.square = square;
-
-		Color c = bottomImage.color;
-		Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
-
-		if (square.blockedBottom) {
-			bottomImage.color = alphaColor;
-		}
-		if (square.blockedLeft) {
-			leftImage.color = alphaColor;
-		}
-		if (square.blockedRight) {
-			rightImage.color = alphaColor;
-		}
-		if (square.blockedTop) {
-			topImage.color = alphaColor;
-		}
-		if (square.displayedNumber == 0) {
-			text.text = "";
+		if (square == null) {
+			//it's a slot to put a square but not an actual square
 		} else {
-			text.text = square.displayedNumber.ToString();
+			this.square = square;
+
+			Color c = bottomImage.color;
+			Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
+
+			if (square.blockedBottom) {
+				bottomImage.color = alphaColor;
+			}
+			if (square.blockedLeft) {
+				leftImage.color = alphaColor;
+			}
+			if (square.blockedRight) {
+				rightImage.color = alphaColor;
+			}
+			if (square.blockedTop) {
+				topImage.color = alphaColor;
+			}
+			if (square.displayedNumber == 0) {
+				text.text = "";
+			} else {
+				text.text = square.displayedNumber.ToString();
+			}
 		}
 	}
 }

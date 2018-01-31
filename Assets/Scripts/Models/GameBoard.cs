@@ -22,8 +22,8 @@ public class GameBoard {
 					continue;
 				}
 				GameBoardSquare sq = new GameBoardSquare();
-				GameCell cell = new GameCell();
-				sq.AddGameCell(cell);
+				//GameCell cell = new GameCell();
+				//sq.AddGameCell(cell);
 				Coordinate coord = new Coordinate(i, j);
 				sq.coordinate = coord;
 				boardMap.Add(coord, sq);
@@ -60,6 +60,18 @@ public class GameBoard {
 		this.tileMap[t] = coord;
 	}
 
+	public bool PlayWasVictorious() {
+		//TODO: really slow - counts each coordinate in each area instead of just checking each area
+		foreach (Coordinate coordinate in boardMap.Keys) {
+			if (boardMap[coordinate].TopCell != null && !this.AreaForSquare(coordinate).MeetsCriteria()) {
+				Debug.Log("coordinate (" + coordinate.row + ", " + coordinate.column + ") does not meet criteria!");
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public Area AreaForSquare(Coordinate coord) {
 		Area area = new Area();
 		//keep track of explored cells - don't go in circles
@@ -92,7 +104,7 @@ public class GameBoard {
 				if (!nextCell.blockedLeft) {
 					Coordinate left = new Coordinate(x - 1, y);
 					if (this.ContainsCoordinate(left)) {
-						if (!this.BoardMap[left].TopCell.blockedRight && !exploredCoordinates.Contains(left)) {
+						if (this.BoardMap[left].TopCell != null && !this.BoardMap[left].TopCell.blockedRight && !exploredCoordinates.Contains(left)) {
 							x = x - 1;
 							nextCoordinate = left;
 							foundNextCell = true;
@@ -102,7 +114,7 @@ public class GameBoard {
 				if (!nextCell.blockedBottom && !foundNextCell) {
 					Coordinate bottom = new Coordinate(x, y - 1);
 					if (this.ContainsCoordinate(bottom)) {
-						if (!this.BoardMap[bottom].TopCell.blockedTop && !exploredCoordinates.Contains(bottom)) {
+						if (this.BoardMap[bottom].TopCell != null && !this.BoardMap[bottom].TopCell.blockedTop && !exploredCoordinates.Contains(bottom)) {
 							y = y - 1;
 							nextCoordinate = bottom;
 							foundNextCell = true;
@@ -112,7 +124,7 @@ public class GameBoard {
 				if (!nextCell.blockedRight && !foundNextCell) {
 					Coordinate right = new Coordinate(x + 1, y);
 					if (this.ContainsCoordinate(right)) {
-						if (!this.BoardMap[right].TopCell.blockedLeft && !exploredCoordinates.Contains(right)) {
+						if (this.BoardMap[right].TopCell != null && !this.BoardMap[right].TopCell.blockedLeft && !exploredCoordinates.Contains(right)) {
 							x = x + 1;
 							nextCoordinate = right;
 							foundNextCell = true;
@@ -122,7 +134,7 @@ public class GameBoard {
 				if (!nextCell.blockedTop && !foundNextCell) {
 					Coordinate top = new Coordinate(x, y + 1);
 					if (this.ContainsCoordinate(top)) {
-						if (!this.BoardMap[top].TopCell.blockedBottom && !exploredCoordinates.Contains(top)) {
+						if (this.BoardMap[top].TopCell != null && !this.BoardMap[top].TopCell.blockedBottom && !exploredCoordinates.Contains(top)) {
 							y = y + 1;
 							nextCoordinate = top;
 							foundNextCell = true;
@@ -144,16 +156,11 @@ public class GameBoard {
 					keepGoing = false;
 				}
 			} else {
-				Debug.Log("ran into a null cell... not sure what to do");
-				keepGoing = false;
+				//Debug.Log("ran into a null cell at (" + x + ", " + y + ")");
+				return area;
 			}
 		}
 
 		return area;
 	}
-
-	//public Area AreaForGameCell(GameCell cell) {
-	//	List<GameCell> exploredCells = new List<GameCell>();
-	//	return null;
-	//}
 }

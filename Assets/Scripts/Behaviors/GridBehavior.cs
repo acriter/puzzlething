@@ -57,6 +57,9 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 		}
 
 		this.gameBoard.MoveTileToSquare(piece, new Coordinate(x, y));
+		if (this.gameBoard.PlayWasVictorious()) {
+			Debug.Log("player beat the level!");
+		}
 
 		return true;
 	}

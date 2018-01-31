@@ -15,12 +15,18 @@ public class Area {
 	}
 
 	public bool MeetsCriteria() {
+		bool foundCorrectNumber = false;
+
 		foreach (GameCell cell in this.cells) {
+			if (cell.displayedNumber == this.cells.Count) {
+				foundCorrectNumber = true;
+			}
+
 			if (cell.displayedNumber > 0 && cell.displayedNumber != this.cells.Count) {
 				return false;
 			}
 		}
-		return true;
+		return foundCorrectNumber;
 	}
 
 	public int Size() {
