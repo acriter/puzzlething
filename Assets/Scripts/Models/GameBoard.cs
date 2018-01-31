@@ -25,6 +25,7 @@ public class GameBoard {
 				GameCell cell = new GameCell();
 				sq.AddGameCell(cell);
 				Coordinate coord = new Coordinate(i, j);
+				sq.coordinate = coord;
 				boardMap.Add(coord, sq);
 			}
 		}
@@ -61,62 +62,86 @@ public class GameBoard {
 
 	public Area AreaForSquare(Coordinate coord) {
 		Area area = new Area();
-
 		//keep track of explored cells - don't go in circles
-		List<GameCell> exploredCells = new List<GameCell>();
+		List<Coordinate> exploredCoordinates = new List<Coordinate>();
 
 		//keep track of cells we haven't fully explored
-		List<GameCell> cellStack = new List<GameCell>();
-		GameCell cell = this.boardMap[coord].TopCell;
+		List<Coordinate> coordinateStack = new List<Coordinate>();
+		Coordinate nextCoordinate = coord;
 		int x = coord.row;
 		int y = coord.column;
 
+		bool foundNextCell = false;
+
+		int i = 0;
 		bool keepGoing = true;
 		while (keepGoing) {
+			foundNextCell = false;
 			//first look left, then down, then right, then up
-			if (cell != null) {
-				area.AddCell(cell);
-				exploredCells.Add(cell);
-				cellStack.Add(cell);
-				if (!cell.blockedLeft) {
+			GameBoardSquare nextBoardSquare = this.boardMap[nextCoordinate];
+			GameCell nextCell = nextBoardSquare.TopCell;
+			x = nextCoordinate.row;
+			y = nextCoordinate.column;
+			Debug.Log("now at (" + x + ", " + y + ")");
+			if (nextCell != null) {
+				area.AddCell(nextCell);
+				if (!exploredCoordinates.Contains(nextCoordinate)) {
+					exploredCoordinates.Add(nextCoordinate);
+					coordinateStack.Add(nextCoordinate);
+				}
+				if (!nextCell.blockedLeft) {
 					Coordinate left = new Coordinate(x - 1, y);
 					if (this.ContainsCoordinate(left)) {
-						if (!this.BoardMap[left].TopCell.blockedRight && !exploredCells.Contains(this.BoardMap[left].TopCell)) {
-							x -= 1;
-							cell = this.BoardMap[left].TopCell;
+						if (!this.BoardMap[left].TopCell.blockedRight && !exploredCoordinates.Contains(left)) {
+							x = x - 1;
+							nextCoordinate = left;
+							foundNextCell = true;
 						}
 					}
-				} else if (!cell.blockedBottom) {
+				}
+				if (!nextCell.blockedBottom && !foundNextCell) {
 					Coordinate bottom = new Coordinate(x, y - 1);
 					if (this.ContainsCoordinate(bottom)) {
-						if (!this.BoardMap[bottom].TopCell.blockedTop && !exploredCells.Contains(this.BoardMap[bottom].TopCell)) {
-							y -= 1;
-							cell = this.BoardMap[bottom].TopCell;
+						if (!this.BoardMap[bottom].TopCell.blockedTop && !exploredCoordinates.Contains(bottom)) {
+							y = y - 1;
+							nextCoordinate = bottom;
+							foundNextCell = true;
 						}
 					}
-				} else if (!cell.blockedRight) {
+				}
+				if (!nextCell.blockedRight && !foundNextCell) {
 					Coordinate right = new Coordinate(x + 1, y);
 					if (this.ContainsCoordinate(right)) {
-						if (!this.BoardMap[right].TopCell.blockedLeft && !exploredCells.Contains(this.BoardMap[right].TopCell)) {
-							x += 1;
-							cell = this.BoardMap[right].TopCell;
+						if (!this.BoardMap[right].TopCell.blockedLeft && !exploredCoordinates.Contains(right)) {
+							x = x + 1;
+							nextCoordinate = right;
+							foundNextCell = true;
 						}
 					}
-				} else if (!cell.blockedTop) {
+				}
+				if (!nextCell.blockedTop && !foundNextCell) {
 					Coordinate top = new Coordinate(x, y + 1);
 					if (this.ContainsCoordinate(top)) {
-						if (!this.BoardMap[top].TopCell.blockedBottom && !exploredCells.Contains(this.BoardMap[top].TopCell)) {
-							y += 1;
-							cell = this.BoardMap[top].TopCell;
+						if (!this.BoardMap[top].TopCell.blockedBottom && !exploredCoordinates.Contains(top)) {
+							y = y + 1;
+							nextCoordinate = top;
+							foundNextCell = true;
 						}
 					}
-				} else {
-					cellStack.RemoveAt(cellStack.Count - 1);
-					if (cellStack.Count == 0) {
+				}
+
+				if (!foundNextCell) {
+					coordinateStack.RemoveAt(coordinateStack.Count - 1);
+					if (coordinateStack.Count == 0) {
 						keepGoing = false;
 					} else {
-						cell = cellStack[cellStack.Count - 1];
+						nextCoordinate = coordinateStack[coordinateStack.Count - 1];
 					}
+				}				
+
+				++i;
+				if (i == 10) {
+					keepGoing = false;
 				}
 			} else {
 				Debug.Log("ran into a null cell... not sure what to do");
