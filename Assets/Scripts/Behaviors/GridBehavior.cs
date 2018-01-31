@@ -84,7 +84,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 
 			GridBoardSquareBehavior sqBehavior = obj.GetComponent<GridBoardSquareBehavior>();
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
-			sqBehavior.UpdateWithGameSquare(sq);
+			sqBehavior.UpdateWithGameSquare(sq.TopCell);
 		}
 	}
 }

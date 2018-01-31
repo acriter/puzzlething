@@ -22,7 +22,8 @@ public class GameBoard {
 					continue;
 				}
 				GameBoardSquare sq = new GameBoardSquare();
-				sq.attachedToGrid = true;
+				GameCell cell = new GameCell();
+				sq.AddGameCell(cell);
 				Coordinate coord = new Coordinate(i, j);
 				boardMap.Add(coord, sq);
 			}
@@ -80,7 +81,7 @@ public class GameBoard {
 				if (!cell.blockedLeft) {
 					Coordinate left = new Coordinate(x - 1, y);
 					if (this.ContainsCoordinate(left)) {
-						if (!this.BoardMap[left].blockedRight && !exploredCells.Contains(this.BoardMap[left])) {
+						if (!this.BoardMap[left].TopCell.blockedRight && !exploredCells.Contains(this.BoardMap[left].TopCell)) {
 							x -= 1;
 							cell = this.BoardMap[left].TopCell;
 						}
@@ -88,7 +89,7 @@ public class GameBoard {
 				} else if (!cell.blockedBottom) {
 					Coordinate bottom = new Coordinate(x, y - 1);
 					if (this.ContainsCoordinate(bottom)) {
-						if (!this.BoardMap[bottom].blockedTop && !exploredCells.Contains(this.BoardMap[bottom])) {
+						if (!this.BoardMap[bottom].TopCell.blockedTop && !exploredCells.Contains(this.BoardMap[bottom].TopCell)) {
 							y -= 1;
 							cell = this.BoardMap[bottom].TopCell;
 						}
@@ -96,7 +97,7 @@ public class GameBoard {
 				} else if (!cell.blockedRight) {
 					Coordinate right = new Coordinate(x + 1, y);
 					if (this.ContainsCoordinate(right)) {
-						if (!this.BoardMap[right].blockedLeft && !exploredCells.Contains(this.BoardMap[right])) {
+						if (!this.BoardMap[right].TopCell.blockedLeft && !exploredCells.Contains(this.BoardMap[right].TopCell)) {
 							x += 1;
 							cell = this.BoardMap[right].TopCell;
 						}
@@ -104,7 +105,7 @@ public class GameBoard {
 				} else if (!cell.blockedTop) {
 					Coordinate top = new Coordinate(x, y + 1);
 					if (this.ContainsCoordinate(top)) {
-						if (!this.BoardMap[top].blockedBottom && !exploredCells.Contains(this.BoardMap[top])) {
+						if (!this.BoardMap[top].TopCell.blockedBottom && !exploredCells.Contains(this.BoardMap[top].TopCell)) {
 							y += 1;
 							cell = this.BoardMap[top].TopCell;
 						}
@@ -119,6 +120,7 @@ public class GameBoard {
 				}
 			} else {
 				Debug.Log("ran into a null cell... not sure what to do");
+				keepGoing = false;
 			}
 		}
 
