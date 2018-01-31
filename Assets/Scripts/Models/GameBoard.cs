@@ -82,7 +82,7 @@ public class GameBoard {
 			GameCell nextCell = nextBoardSquare.TopCell;
 			x = nextCoordinate.row;
 			y = nextCoordinate.column;
-			Debug.Log("now at (" + x + ", " + y + ")");
+			//Debug.Log("now at (" + x + ", " + y + ")");
 			if (nextCell != null) {
 				area.AddCell(nextCell);
 				if (!exploredCoordinates.Contains(nextCoordinate)) {
