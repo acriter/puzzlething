@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
+public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointerClickHandler {
 	public GameObject myObj;
 
 	private GameBoard gameBoard;
@@ -13,10 +14,32 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 
 	public void DidSwitchToMode(ToolbarMode mode) {
 		toolbarMode = mode;
+		Debug.Log("switched to mode " + mode);
+	}
+
+	public void OnPointerClick(PointerEventData eventData) {
+		Vector2 clickPos = eventData.pressPosition;
+		Vector2 releaseLocalPos = transform.InverseTransformPoint(clickPos);
+		//base it on where the center of the tile is, not the bottom left
+		int x = (int)Mathf.Floor(releaseLocalPos.x / BoardSquareBehavior.TILE_SIZE);
+		int y = (int)Mathf.Floor(releaseLocalPos.y / BoardSquareBehavior.TILE_SIZE);
+		Debug.Log("clicked " + x + ", " + y);
 	}
 
 	public void Start() {
-		this.gameBoard = new GameBoard();
+		int START_SIZE = 6;
+		Dictionary<Coordinate, GameBoardSquare> gameBoardDict = new Dictionary<Coordinate, GameBoardSquare>();
+
+		for (int i = 0; i < START_SIZE; ++i) {
+			for (int j = 0; j < START_SIZE; ++j) {
+				Coordinate coord = new Coordinate(i, j);
+				GameBoardSquare square = new GameBoardSquare(coord);
+				square.isActive = false;
+				gameBoardDict.Add(coord, square);
+			}
+		}
+		
+		this.gameBoard = new GameBoard(gameBoardDict);
 		this.SetUpBoardSquares();
 	}
 
@@ -30,7 +53,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 
 			GridBoardSquareBehavior sqBehavior = obj.GetComponent<GridBoardSquareBehavior>();
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
-			sqBehavior.UpdateWithGameSquare(sq.TopCell);
+			sqBehavior.Initialize(sq);
 		}
 	}
 }

@@ -18,4 +18,16 @@ public class GridBoardSquareBehavior : BoardSquareBehavior {
 	public void RemoveGameSquare(BoardSquareBehavior square) {
 		this.stackedBoardSquares.Remove(square);
 	}
+
+	public void Initialize(GameBoardSquare square) {
+		GameCell topCell = square.TopCell;
+		if (topCell == null) {
+			if (!square.isActive) {
+				Debug.Log("not active");
+			}
+			//it's a slot to put a square but not an actual square
+		} else {
+			this.UpdateWithGameCell(topCell);
+		}
+	}
 }

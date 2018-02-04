@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GameBoardSquare {
 	public Coordinate coordinate;
+
+	//used by the level editor - is this square a square that users can place tiles on?
+	public bool isActive = true;
 	List<GameCell> squares;
 
 	public GameCell TopCell {

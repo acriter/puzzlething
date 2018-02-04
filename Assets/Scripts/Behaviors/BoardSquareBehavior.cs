@@ -8,38 +8,47 @@ public class BoardSquareBehavior : MonoBehaviour {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;
 
-	private GameCell square;
+	private GameCell cell;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
+	public Image backgroundImage;
 
 	public TileBehavior parentTile;
 
-	public void UpdateWithGameSquare(GameCell square) {
-		if (square == null) {
+	public void UpdateWithGameCell(GameCell topCell) {
+		this.cell = topCell;
+
+		Color c = bottomImage.color;
+		Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
+
+		if (topCell.blockedBottom) {
+			bottomImage.color = alphaColor;
+		}
+		if (topCell.blockedLeft) {
+			leftImage.color = alphaColor;
+		}
+		if (topCell.blockedRight) {
+			rightImage.color = alphaColor;
+		}
+		if (topCell.blockedTop) {
+			topImage.color = alphaColor;
+		}
+		if (topCell.displayedNumber == 0) {
+			text.text = "";
+		} else {
+			text.text = topCell.displayedNumber.ToString();
+		}
+	}
+
+	public void Initialize(GameBoardSquare square) {
+		GameCell topCell = square.TopCell;
+		if (topCell == null) {
+			if (!square.isActive) {
+				Debug.Log("not active");
+			}
 			//it's a slot to put a square but not an actual square
 		} else {
-			this.square = square;
-
-			Color c = bottomImage.color;
-			Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
-
-			if (square.blockedBottom) {
-				bottomImage.color = alphaColor;
-			}
-			if (square.blockedLeft) {
-				leftImage.color = alphaColor;
-			}
-			if (square.blockedRight) {
-				rightImage.color = alphaColor;
-			}
-			if (square.blockedTop) {
-				topImage.color = alphaColor;
-			}
-			if (square.displayedNumber == 0) {
-				text.text = "";
-			} else {
-				text.text = square.displayedNumber.ToString();
-			}
+			this.UpdateWithGameCell(topCell);
 		}
 	}
 }

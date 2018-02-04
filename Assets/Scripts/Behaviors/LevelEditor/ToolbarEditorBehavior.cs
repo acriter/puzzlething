@@ -18,6 +18,7 @@ public class ToolbarEditorBehavior : MonoBehaviour {
 	public ToggleGroup toggleGroup;
 	public IToolbarModeInterface gridDelegate;
 	private Toggle selectedToggle;
+	private ToolbarMode toolbarMode;
 
 	
 	// Use this for initialization
@@ -30,13 +31,24 @@ public class ToolbarEditorBehavior : MonoBehaviour {
 		numberToggle.onValueChanged.AddListener((bool selected) => TaskOnClick(numberToggle, selected));
 		tileToggle.onValueChanged.AddListener((bool selected) => TaskOnClick(tileToggle, selected));
 		borderToggle.onValueChanged.AddListener((bool selected) => TaskOnClick(borderToggle, selected));
+
+		this.TaskOnClick(tileToggle, true);
 	}
 
-	void TaskOnClick(Toggle Toggle, bool selected) {
-		Debug.Log((selected ? "clicked" : "unclicked") + " a button");
-		selectedToggle = Toggle;
-		if (Toggle == numberToggle) {
-			
+	void TaskOnClick(Toggle toggle, bool selected) {
+		selectedToggle = toggle;
+		if (selected) {
+			if (toggle == numberToggle) {
+				toolbarMode = ToolbarMode.Number;
+			} else if (toggle == borderToggle) {
+				toolbarMode = ToolbarMode.Border;
+			} else if (toggle == tileToggle) {
+				toolbarMode = ToolbarMode.Tile;
+			} else {
+				Debug.Log("something really weird happened");
+			}
+
+			gridDelegate.DidSwitchToMode(toolbarMode);
 		}
 	}
 
