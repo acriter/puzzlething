@@ -9,11 +9,19 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	Vector3 startPosition;
 	Vector3 startMousePosition;
 	Transform startParent;
+	int siblingIndex;
 	Transform canvas;
 
 	public void OnBeginDrag(PointerEventData eventData) {
 		draggedItem = gameObject;
 		startParent = transform.parent;
+		//for (int i = 0; i < startParent.childCount; ++i) {
+		//	if (startParent.GetChild(i) == transform) {
+		//		childNumberOfParent = i;
+		//		break;
+		//	}
+		//}
+		siblingIndex = transform.GetSiblingIndex();
 		startPosition = transform.position;
 		startMousePosition = Input.mousePosition;
 		GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -32,6 +40,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		if (transform.parent == canvas) {
 			transform.SetParent(startParent);
+			transform.SetSiblingIndex(siblingIndex);
 			transform.position = startPosition;
 		} else {
 			//somebody accepted the drop. inform the necessary channels that a piece was moved
