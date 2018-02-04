@@ -23,11 +23,31 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 		//base it on where the center of the tile is, not the bottom left
 		int x = (int)Mathf.Floor(releaseLocalPos.x / BoardSquareBehavior.TILE_SIZE);
 		int y = (int)Mathf.Floor(releaseLocalPos.y / BoardSquareBehavior.TILE_SIZE);
-		Debug.Log("clicked " + x + ", " + y);
+
+		Coordinate clickedCoord = new Coordinate(x, y);
+		if (gameBoard.ContainsCoordinate(clickedCoord)) {
+			GameBoardSquare square = gameBoard.BoardMap[clickedCoord];
+			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[clickedCoord];
+
+			switch(toolbarMode) {
+				case ToolbarMode.Border:
+					break;
+				case ToolbarMode.Number:
+					break;
+				case ToolbarMode.Tile:
+					if (!square.isActive) {
+						squareBehavior.Activate();
+						square.isActive = true;
+					}
+					break;
+			}
+		}
 	}
 
 	public void Start() {
 		int START_SIZE = 6;
+		this.gameBoardDictionary = new Dictionary<Coordinate, GridBoardSquareBehavior>();
+
 		Dictionary<Coordinate, GameBoardSquare> gameBoardDict = new Dictionary<Coordinate, GameBoardSquare>();
 
 		for (int i = 0; i < START_SIZE; ++i) {
@@ -51,7 +71,8 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
-			GridBoardSquareBehavior sqBehavior = obj.GetComponent<GridBoardSquareBehavior>();
+			GridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<GridBoardSquareBehavior>();
+			this.gameBoardDictionary.Add(coord, sqBehavior);
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
 			sqBehavior.Initialize(sq);
 		}

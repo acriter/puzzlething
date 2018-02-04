@@ -271,6 +271,7 @@ MonoBehaviour:
   rightImage: {fileID: 114944266480637718}
   topImage: {fileID: 114115299784297216}
   bottomImage: {fileID: 114145545749222300}
+  backgroundImage: {fileID: 114385874048926224}
   parentTile: {fileID: 0}
 --- !u!114 &114944266480637718
 MonoBehaviour:

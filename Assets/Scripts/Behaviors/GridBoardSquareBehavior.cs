@@ -23,11 +23,19 @@ public class GridBoardSquareBehavior : BoardSquareBehavior {
 		GameCell topCell = square.TopCell;
 		if (topCell == null) {
 			if (!square.isActive) {
-				Debug.Log("not active");
+				this.Deactivate();
 			}
 			//it's a slot to put a square but not an actual square
 		} else {
 			this.UpdateWithGameCell(topCell);
 		}
+	}
+
+	public void Activate() {
+		this.backgroundImage.color = Color.white;
+	}
+
+	public void Deactivate() {
+		this.backgroundImage.color = new Color(0.1f, 0.1f, 0.1f);
 	}
 }
