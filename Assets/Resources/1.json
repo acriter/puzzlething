@@ -1,0 +1,24 @@
+{
+	"tiles": [{
+		"cells": [{
+				"row": 0,
+				"column": 0,
+                                "number": 3,
+				"blockedBottom": false,
+				"blockedTop": false,
+				"blockedLeft": false,
+				"blockedRight": false
+			},
+			{
+				"row": 1,
+				"column": 0,
+                                "number": 2,
+				"blockedBottom": false,
+				"blockedTop": false,
+				"blockedLeft": false,
+				"blockedRight": false
+			}
+		]
+	}],
+	"squares": []
+}
