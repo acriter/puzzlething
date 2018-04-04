@@ -97,11 +97,12 @@ public class GameBoard
 
 	public bool PlayWasVictorious ()
 	{
-		//TODO: really slow - counts each coordinate in each area instead of just checking each area
 		foreach (Coordinate coordinate in boardMap.Keys) {
 			if (boardMap[coordinate].TopCell.attachedToGrid) {
 				return false;
 			}
+
+			//TODO: really slow - counts each coordinate in each area instead of just checking each area
 			if (boardMap [coordinate].TopCell != null && !this.AreaForSquare (coordinate).MeetsCriteria ()) {
 				Debug.Log ("coordinate (" + coordinate.row + ", " + coordinate.column + ") does not meet criteria!");
 				return false;

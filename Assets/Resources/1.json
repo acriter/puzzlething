@@ -18,15 +18,6 @@
 				"blockedLeft": false,
 				"blockedRight": false
 			},
-                        {
-                                     "row": 0,
-                                     "column": 1,
-                                     "number": "",
-                                     "blockedBottom": false,
-                                     "blockedTop": false,
-                                     "blockedLeft": false,
-                                    "blockedRight": false
-                            },
                             {
                                    "row": 1,
                                    "column": 1,

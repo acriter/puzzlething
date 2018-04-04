@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class GridBehavior : MonoBehaviour, IDropHandler {
 	private GameBoard gameBoard;
 	private Dictionary<Coordinate, GridBoardSquareBehavior> gameBoardDictionary;
-
+	public ITileDroppedDelegate dropTileDelegate;
 	private GameObject currentlyDraggedObj;
 	
 
@@ -37,7 +37,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 		}
 
 		currentlyDraggedObj.transform.SetParent(transform);
-		
+		this.dropTileDelegate.DidDropTile(draggedItem);
 		this.StartCoroutine(SnapPlacedPieceToGrid(x, y));
 	}
 
@@ -57,11 +57,15 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 		}
 
 		this.gameBoard.MoveTileToSquare(piece, new Coordinate(x, y));
-		if (this.gameBoard.PlayWasVictorious()) {
-			Debug.Log("player beat the level!");
-		}
-
 		return true;
+	}
+
+	public bool IsLevelSolved() {
+		return this.gameBoard.PlayWasVictorious();
+	}
+
+	public bool IsTilePlaced(TileBehavior tile) {
+		return tile.transform.parent.Equals(transform);
 	}
 
 	private IEnumerator SnapPlacedPieceToGrid(int x, int y) {

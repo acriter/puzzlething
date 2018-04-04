@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class TileBankBehavior : MonoBehaviour {
-	List<TileBehavior> tiles;
+	public List<TileBehavior> tiles;
 
 	public void Start() {
 		tiles = new List<TileBehavior>();
@@ -64,5 +64,8 @@ public class TileBankBehavior : MonoBehaviour {
 		piece2.squareInfo.Add(bst5, sq5);
 
 		beh2.SetUpWithGamePiece(piece2);
+
+		tiles.Add(beh);
+		tiles.Add(beh2);
 	}
 }
