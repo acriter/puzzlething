@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/* This class represents a coordinate (square) on the game board, and all the tiles/information on that coordinate */
 public class GridBoardSquareBehavior : BoardSquareBehavior {
 	List<BoardSquareBehavior> stackedBoardSquares;
 
 	public void Start() {
+		//This is a list of the tiles that are on this square
 		this.stackedBoardSquares = new List<BoardSquareBehavior>();
 	}
 

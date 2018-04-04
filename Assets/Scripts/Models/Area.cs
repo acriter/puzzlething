@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+/* An area represents a collection of connected GameCells (tiles), enclosed by blocked off GameCells */
+/* To be valid, an area must contain a number and be comprised of a number of tiles equal to that number */
 public class Area {
 	List<GameCell> cells;
 

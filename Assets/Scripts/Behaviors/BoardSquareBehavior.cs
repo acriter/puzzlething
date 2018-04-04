@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/* This class represents an individual cell, i.e. one square and one member of a tile */
+/* It knows nothing about other cells that share the same coordinate; see GridBoardSquareBehavior */
 public class BoardSquareBehavior : MonoBehaviour {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;

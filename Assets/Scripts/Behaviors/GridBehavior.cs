@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/* This class manages the board grid, i.e. the thing that the player needs to put stuff on and manipulate to beat the level */
 public class GridBehavior : MonoBehaviour, IDropHandler {
 	public GameObject myObj;
 
