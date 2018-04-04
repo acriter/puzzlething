@@ -42,12 +42,24 @@ public class GameBoard
 			string jsonText = reader.ReadToEnd();
 			reader.Close();
 			JSONNode node = JSON.Parse(jsonText);
-			foreach (JSONNode tile in node["tiles"]) {
-				foreach (JSONNode cell in tile["cells"]) {
-					Debug.Log("cell number: " + cell["number"]);
+			foreach (JSONNode square in node["squares"]) {
+				foreach (JSONNode cell in square["cells"]) {
+					int row = cell["row"];
+					int column = cell["column"];
+					GameBoardSquare sq = new GameBoardSquare();
+					Coordinate coord = new Coordinate(row, column);
+					sq.coordinate = coord;
+					GameCell gameCell = new GameCell();
+					gameCell.blockedBottom = cell["blockedBottom"];
+					gameCell.blockedTop = cell["blockedTop"];
+					gameCell.blockedLeft = cell["blockedLeft"];
+					gameCell.blockedRight = cell["blockedRight"];
+					gameCell.displayedNumber = cell["number"];
+					gameCell.attachedToGrid = true;
+					sq.AddGameCell(gameCell);
+					boardMap.Add(coord, sq);
 				}
 			}
-			//load from file
 		}
 	}
 
@@ -87,6 +99,9 @@ public class GameBoard
 	{
 		//TODO: really slow - counts each coordinate in each area instead of just checking each area
 		foreach (Coordinate coordinate in boardMap.Keys) {
+			if (boardMap[coordinate].TopCell.attachedToGrid) {
+				return false;
+			}
 			if (boardMap [coordinate].TopCell != null && !this.AreaForSquare (coordinate).MeetsCriteria ()) {
 				Debug.Log ("coordinate (" + coordinate.row + ", " + coordinate.column + ") does not meet criteria!");
 				return false;

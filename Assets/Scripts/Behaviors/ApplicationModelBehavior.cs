@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ApplicationModelBehavior : MonoBehaviour {
 
-	public static string LevelToLoad;
+	public static string LevelToLoad = "";
 
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
