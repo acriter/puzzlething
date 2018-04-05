@@ -35,7 +35,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 			GameBoardSquare square = gameBoard.BoardMap[clickedCoord];
 			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[clickedCoord];
 
-			switch(toolbarMode) {
+			switch (toolbarMode) {
 				case ToolbarMode.Border:
 					break;
 				case ToolbarMode.Number:
@@ -64,19 +64,20 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 	}
 
 	public void DidFinishTypingNumber(string number) {
-		Debug.Log("finished typing and got " + number);
 		if (!this.currentlyEditedCoordinate.Equals(Coordinate.NullCoordinate())) {
 			GameBoardSquare square = gameBoard.BoardMap[this.currentlyEditedCoordinate];
 			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[this.currentlyEditedCoordinate];
 			int numValue;
-			bool parseSuccess = int.TryParse(number, out numValue);
-			if (parseSuccess) {
-				if (square.TopCell != null) {
-					square.TopCell.displayedNumber = numValue;
-				} else {
-					Debug.Log("there was no top cell...");
-				}
-				//squareBehavior.UpdateSquare();
+			if (number == "") {
+				numValue = 0;
+			} else {
+				numValue = int.Parse(number);
+			}
+			if (square.TopCell != null) {
+				square.TopCell.displayedNumber = numValue;
+				squareBehavior.UpdateSquare();
+			} else {
+				Debug.Log("there was no top cell...");
 			}
 		} else {
 			Debug.Log("currently edited coordinate is null");
