@@ -28,15 +28,23 @@ public class GameCellBehavior : MonoBehaviour {
 		Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
 
 		if (topCell.blockedBottom) {
+			bottomImage.color = c;
+		} else {
 			bottomImage.color = alphaColor;
 		}
 		if (topCell.blockedLeft) {
+			leftImage.color = c;
+		} else {
 			leftImage.color = alphaColor;
 		}
 		if (topCell.blockedRight) {
+			rightImage.color = c;
+		} else {
 			rightImage.color = alphaColor;
 		}
 		if (topCell.blockedTop) {
+			topImage.color = c;
+		} else {
 			topImage.color = alphaColor;
 		}
 		if (topCell.displayedNumber == 0) {

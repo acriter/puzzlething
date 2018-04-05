@@ -11,7 +11,11 @@ public class LevelBehavior : MonoBehaviour, ITileDroppedDelegate {
 	public TileBankBehavior tileBankBehavior;
 
 	public void Start() {
+		string levelToLoad = ApplicationModelBehavior.LevelToLoad;
+		this.gridBehavior.InitializeWithLevel(levelToLoad);
 		this.gridBehavior.dropTileDelegate = this;
+
+		this.tileBankBehavior.InitializeWithLevel(levelToLoad);
 	}
 
 	public void DidDropTile(GameObject obj) {
@@ -21,7 +25,7 @@ public class LevelBehavior : MonoBehaviour, ITileDroppedDelegate {
 	}
 
 	private bool DidUserBeatLevel() {
-		foreach (TileBehavior t in this.tileBankBehavior.tiles) {
+		foreach (TileBehavior t in this.tileBankBehavior.tileBehaviors) {
 			if (!this.gridBehavior.IsTilePlaced(t)) {
 				return false;
 			}

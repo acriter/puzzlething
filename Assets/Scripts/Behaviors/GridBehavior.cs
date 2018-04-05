@@ -13,7 +13,9 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	
 
 	public void Start() {
-		string levelToLoad = ApplicationModelBehavior.LevelToLoad;
+	}
+
+	public void InitializeWithLevel(string levelToLoad) {
 		this.gameBoard = new GameBoard(levelToLoad);
 		this.SetUpBoardSquares();
 	}

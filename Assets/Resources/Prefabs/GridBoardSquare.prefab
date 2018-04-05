@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 222394288813150878}
   - component: {fileID: 114385874048926224}
   - component: {fileID: 114653909747996270}
+  - component: {fileID: 225641365464194782}
   m_Layer: 5
   m_Name: GridBoardSquare
   m_TagString: Untagged
@@ -216,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7388b79ae78db6b418b03e5796c949d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 0
 --- !u!114 &114944266480637718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,3 +369,14 @@ RectTransform:
   m_AnchoredPosition: {x: 64, y: 0}
   m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &225641365464194782
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1300138207943206}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
