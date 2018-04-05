@@ -27,8 +27,8 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 		Vector2 clickPos = eventData.pressPosition;
 		Vector2 releaseLocalPos = transform.InverseTransformPoint(clickPos);
 		//base it on where the center of the tile is, not the bottom left
-		int x = (int)Mathf.Floor(releaseLocalPos.x / BoardSquareBehavior.TILE_SIZE);
-		int y = (int)Mathf.Floor(releaseLocalPos.y / BoardSquareBehavior.TILE_SIZE);
+		int x = (int)Mathf.Floor(releaseLocalPos.x / GameCellBehavior.TILE_SIZE);
+		int y = (int)Mathf.Floor(releaseLocalPos.y / GameCellBehavior.TILE_SIZE);
 
 		Coordinate clickedCoord = new Coordinate(x, y);
 		if (gameBoard.ContainsCoordinate(clickedCoord)) {
@@ -48,6 +48,12 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 					if (!square.isActive) {
 						squareBehavior.Activate();
 						square.isActive = true;
+						GameCell cell = new GameCell();
+						square.AddGameCell(cell);
+					} else if (square.TopCell != null) {
+					//square.RemoveGameCell(square.TopCell);
+					//squareBehavior.UpdateSquare();
+				} else {
 					}
 					break;
 			}
@@ -67,7 +73,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 				} else {
 					Debug.Log("there was no top cell...");
 				}
-				squareBehavior.UpdateSquare();
+				//squareBehavior.UpdateSquare();
 			}
 		} else {
 			Debug.Log("currently edited coordinate is null");
@@ -97,7 +103,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 	}
 
 	private void SetUpBoardSquares() {
-		float size = BoardSquareBehavior.TILE_SIZE;
+		float size = GameCellBehavior.TILE_SIZE;
 		foreach (Coordinate coord in this.gameBoard.BoardMap.Keys) {
 			GameObject obj = Resources.Load("Prefabs/GridBoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);

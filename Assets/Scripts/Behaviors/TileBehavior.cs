@@ -17,13 +17,13 @@ public class TileBehavior : DragHandler {
 		this.piece = piece;
 
 		foreach (Coordinate pair in piece.squareInfo.Keys) {
-			GameObject obj = Resources.Load("Prefabs/BoardSquare") as GameObject;
+			GameObject obj = Resources.Load("Prefabs/GameCell") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
-			instantiatedObj.transform.localPosition = new Vector2(BoardSquareBehavior.TILE_SIZE * pair.row, BoardSquareBehavior.TILE_SIZE * pair.column);
+			instantiatedObj.transform.localPosition = new Vector2(GameCellBehavior.TILE_SIZE * pair.row, GameCellBehavior.TILE_SIZE * pair.column);
 
-			BoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<BoardSquareBehavior>();
-			sqBehavior.InitializeWithGameCell(piece.squareInfo[pair]);
+			GameCellBehavior cellBehavior = instantiatedObj.GetComponent<GameCellBehavior>();
+			cellBehavior.InitializeWithGameCell(piece.squareInfo[pair]);
 		}
 	}
 }

@@ -89,9 +89,9 @@ GameObject:
   - component: {fileID: 224121739283962758}
   - component: {fileID: 222406530876499612}
   - component: {fileID: 114845998018577344}
-  - component: {fileID: 114767352912913014}
+  - component: {fileID: 114262131063666224}
   m_Layer: 5
-  m_Name: BoardSquare
+  m_Name: GameCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,6 +174,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114262131063666224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1606833756505530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc6349de2f844fcc9c7236e93964cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 114009880518677702}
+  leftImage: {fileID: 114038725527304582}
+  rightImage: {fileID: 114324848413900914}
+  topImage: {fileID: 114661566901530314}
+  bottomImage: {fileID: 114414494192354200}
+  backgroundImage: {fileID: 114845998018577344}
+  parentTile: {fileID: 0}
 --- !u!114 &114324848413900914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,22 +273,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114767352912913014
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1606833756505530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35bd3b6571ff8f34aa9e689fd1556800, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 114009880518677702}
-  leftImage: {fileID: 114038725527304582}
-  rightImage: {fileID: 114324848413900914}
-  topImage: {fileID: 114661566901530314}
-  bottomImage: {fileID: 114414494192354200}
 --- !u!114 &114845998018577344
 MonoBehaviour:
   m_ObjectHideFlags: 1

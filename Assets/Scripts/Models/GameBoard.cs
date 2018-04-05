@@ -49,6 +49,7 @@ public class GameBoard
 					GameBoardSquare sq = new GameBoardSquare();
 					Coordinate coord = new Coordinate(row, column);
 					sq.coordinate = coord;
+					//TODO: only add GameCell if square is not "greyed out" (add something in the json for that)
 					GameCell gameCell = new GameCell();
 					gameCell.blockedBottom = cell["blockedBottom"];
 					gameCell.blockedTop = cell["blockedTop"];
@@ -98,7 +99,7 @@ public class GameBoard
 	public bool PlayWasVictorious ()
 	{
 		foreach (Coordinate coordinate in boardMap.Keys) {
-			if (boardMap[coordinate].TopCell.attachedToGrid) {
+			if (boardMap[coordinate].TopCell != null && boardMap[coordinate].TopCell.attachedToGrid) {
 				return false;
 			}
 

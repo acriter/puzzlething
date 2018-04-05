@@ -27,10 +27,10 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 		currentlyDraggedObj = draggedItem;
 
 		Vector2 releaseLocalPos = transform.InverseTransformPoint(currentlyDraggedObj.transform.position);
-		releaseLocalPos += new Vector2(BoardSquareBehavior.TILE_SIZE / 2.0f, BoardSquareBehavior.TILE_SIZE / 2.0f);
+		releaseLocalPos += new Vector2(GameCellBehavior.TILE_SIZE / 2.0f, GameCellBehavior.TILE_SIZE / 2.0f);
 		//base it on where the center of the tile is, not the bottom left
-		int x = (int)Mathf.Floor(releaseLocalPos.x / BoardSquareBehavior.TILE_SIZE);
-		int y = (int)Mathf.Floor(releaseLocalPos.y / BoardSquareBehavior.TILE_SIZE);
+		int x = (int)Mathf.Floor(releaseLocalPos.x / GameCellBehavior.TILE_SIZE);
+		int y = (int)Mathf.Floor(releaseLocalPos.y / GameCellBehavior.TILE_SIZE);
 
 		if (!this.ValidatePositionAndUpdateGrid(x, y)) {
 			return;
@@ -72,7 +72,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 		float elapsedTime = 0f;
 		float totalTime = 0.15f;
 		Vector2 startingPos = currentlyDraggedObj.transform.localPosition;
-		Vector2 endingPos = new Vector2(x * BoardSquareBehavior.TILE_SIZE, y * BoardSquareBehavior.TILE_SIZE);
+		Vector2 endingPos = new Vector2(x * GameCellBehavior.TILE_SIZE, y * GameCellBehavior.TILE_SIZE);
 		while (elapsedTime < totalTime) {
 			float t = elapsedTime / totalTime;
 			currentlyDraggedObj.transform.localPosition = Vector2.Lerp(startingPos, endingPos, 2 * t * t * (3f - 2.5f * t));
@@ -82,7 +82,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	}
 
 	private void SetUpBoardSquares() {
-		float size = BoardSquareBehavior.TILE_SIZE;
+		float size = GameCellBehavior.TILE_SIZE;
 		foreach (Coordinate coord in this.gameBoard.BoardMap.Keys) {
 			GameObject obj = Resources.Load("Prefabs/GridBoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
