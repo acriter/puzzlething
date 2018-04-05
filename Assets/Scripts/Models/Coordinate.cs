@@ -4,6 +4,10 @@ using System.Collections.Generic;
 public struct Coordinate {
 	public int row, column;
 
+	public static Coordinate NullCoordinate() {
+		return new Coordinate(-1, -1);
+	}
+
 	public Coordinate(int x, int y) {
 		row = x;
 		column = y;

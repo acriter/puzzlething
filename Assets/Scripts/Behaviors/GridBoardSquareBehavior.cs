@@ -29,7 +29,7 @@ public class GridBoardSquareBehavior : BoardSquareBehavior {
 			}
 			//it's a slot to put a square but not an actual square
 		} else {
-			this.UpdateWithGameCell(topCell);
+			this.InitializeWithGameCell(topCell);
 		}
 	}
 

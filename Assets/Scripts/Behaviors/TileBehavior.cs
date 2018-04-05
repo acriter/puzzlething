@@ -23,7 +23,7 @@ public class TileBehavior : DragHandler {
 			instantiatedObj.transform.localPosition = new Vector2(BoardSquareBehavior.TILE_SIZE * pair.row, BoardSquareBehavior.TILE_SIZE * pair.column);
 
 			BoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<BoardSquareBehavior>();
-			sqBehavior.UpdateWithGameCell(piece.squareInfo[pair]);
+			sqBehavior.InitializeWithGameCell(piece.squareInfo[pair]);
 		}
 	}
 }

@@ -17,7 +17,11 @@ public class BoardSquareBehavior : MonoBehaviour {
 
 	public TileBehavior parentTile;
 
-	public void UpdateWithGameCell(GameCell topCell) {
+	public void UpdateSquare() {
+		this.InitializeWithGameCell(this.cell);
+	}
+
+	public void InitializeWithGameCell(GameCell topCell) {
 		this.cell = topCell;
 
 		Color c = bottomImage.color;

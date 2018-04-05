@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointerClickHandler {
-	public GameObject myObj;
+public interface INumberInputHandler {
+	void DidFinishTypingNumber(string number);
+}
 
+public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointerClickHandler, INumberInputHandler {
+	public NumberInputBehavior numberInputBehavior;
 	private GameBoard gameBoard;
 	private Dictionary<Coordinate, GridBoardSquareBehavior> gameBoardDictionary;
 	private ToolbarMode toolbarMode;
 
+	private Coordinate currentlyEditedCoordinate = Coordinate.NullCoordinate();
+
 	private GameObject currentlyDraggedObj;
 
 	public void DidSwitchToMode(ToolbarMode mode) {
+		this.currentlyEditedCoordinate = Coordinate.NullCoordinate();
 		toolbarMode = mode;
 		Debug.Log("switched to mode " + mode);
 	}
@@ -33,6 +39,10 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 				case ToolbarMode.Border:
 					break;
 				case ToolbarMode.Number:
+					if (square.isActive) {
+						this.currentlyEditedCoordinate = clickedCoord;
+						this.numberInputBehavior.Show();
+					}
 					break;
 				case ToolbarMode.Tile:
 					if (!square.isActive) {
@@ -42,6 +52,28 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 					break;
 			}
 		}
+	}
+
+	public void DidFinishTypingNumber(string number) {
+		Debug.Log("finished typing and got " + number);
+		if (!this.currentlyEditedCoordinate.Equals(Coordinate.NullCoordinate())) {
+			GameBoardSquare square = gameBoard.BoardMap[this.currentlyEditedCoordinate];
+			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[this.currentlyEditedCoordinate];
+			int numValue;
+			bool parseSuccess = int.TryParse(number, out numValue);
+			if (parseSuccess) {
+				if (square.TopCell != null) {
+					square.TopCell.displayedNumber = numValue;
+				} else {
+					Debug.Log("there was no top cell...");
+				}
+				squareBehavior.UpdateSquare();
+			}
+		} else {
+			Debug.Log("currently edited coordinate is null");
+		}
+
+		this.currentlyEditedCoordinate = Coordinate.NullCoordinate();
 	}
 
 	public void Start() {
@@ -58,9 +90,10 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 				gameBoardDict.Add(coord, square);
 			}
 		}
-		
+			
 		this.gameBoard = new GameBoard(gameBoardDict);
 		this.SetUpBoardSquares();
+		this.numberInputBehavior.inputDelegate = this;
 	}
 
 	private void SetUpBoardSquares() {
@@ -72,6 +105,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
 			GridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<GridBoardSquareBehavior>();
+
 			this.gameBoardDictionary.Add(coord, sqBehavior);
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
 			sqBehavior.Initialize(sq);
