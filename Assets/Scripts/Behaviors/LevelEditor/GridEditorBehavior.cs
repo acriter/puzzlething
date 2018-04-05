@@ -39,21 +39,24 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 				case ToolbarMode.Border:
 					break;
 				case ToolbarMode.Number:
-					if (square.isActive) {
+					if (square.TopCell != null) {
 						this.currentlyEditedCoordinate = clickedCoord;
 						this.numberInputBehavior.Show();
 					}
 					break;
 				case ToolbarMode.Tile:
-					if (!square.isActive) {
+					if (!squareBehavior.isActive) {
 						squareBehavior.Activate();
-						square.isActive = true;
-						GameCell cell = new GameCell();
-						square.AddGameCell(cell);
+						if (square.TopCell == null) {
+							GameCell cell = new GameCell();
+							square.AddGameCell(cell);
+							squareBehavior.Initialize(square);
+						}
 					} else if (square.TopCell != null) {
-					//square.RemoveGameCell(square.TopCell);
-					//squareBehavior.UpdateSquare();
-				} else {
+						square.RemoveGameCell(square.TopCell);
+						squareBehavior.UpdateSquare();
+					} else {
+						squareBehavior.Deactivate();
 					}
 					break;
 			}
@@ -92,7 +95,6 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 			for (int j = 0; j < START_SIZE; ++j) {
 				Coordinate coord = new Coordinate(i, j);
 				GameBoardSquare square = new GameBoardSquare(coord);
-				square.isActive = false;
 				gameBoardDict.Add(coord, square);
 			}
 		}
@@ -115,6 +117,7 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, IPointer
 			this.gameBoardDictionary.Add(coord, sqBehavior);
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
 			sqBehavior.Initialize(sq);
+			sqBehavior.Deactivate();
 		}
 	}
 }

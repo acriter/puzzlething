@@ -10,14 +10,14 @@ public class GameCellBehavior : MonoBehaviour {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;
 
-	private GameCell cell;
+	public GameCell cell;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
 	public Image backgroundImage;
 
 	public TileBehavior parentTile;
 
-	public void UpdateSquare() {
+	public void UpdateCell() {
 		this.InitializeWithGameCell(this.cell);
 	}
 

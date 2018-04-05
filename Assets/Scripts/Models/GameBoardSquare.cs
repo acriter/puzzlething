@@ -5,18 +5,15 @@ using UnityEngine;
 public class GameBoardSquare {
 	public Coordinate coordinate;
 
-	//used by the level editor - is this square a square that users can place tiles on?
-	//TODO: how/why is this different from GameCell - attachedToGrid?
-	public bool isActive = true;
-	List<GameCell> squares;
+	public List<GameCell> cells;
 
 	public GameCell TopCell {
 		get {
-			if (this.squares.Count == 0) {
+			if (this.cells.Count == 0) {
 				return null;
 			}
 
-			return this.squares[this.squares.Count - 1];
+			return this.cells[this.cells.Count - 1];
 		}
 	}
 
@@ -25,18 +22,18 @@ public class GameBoardSquare {
 	}
 
 	public GameBoardSquare() {
-		this.squares = new List<GameCell>();
+		this.cells = new List<GameCell>();
 	}
 
 	public void AddGameCell(GameCell cell) {
-		if (!this.squares.Contains(cell)) {
-			this.squares.Add(cell);
+		if (!this.cells.Contains(cell)) {
+			this.cells.Add(cell);
 		}
 	}
 
 	public void RemoveGameCell(GameCell cell) {
-		if (this.squares.Contains(cell)) {
-			this.squares.Remove(cell);
+		if (this.cells.Contains(cell)) {
+			this.cells.Remove(cell);
 		}
 	}
 }
