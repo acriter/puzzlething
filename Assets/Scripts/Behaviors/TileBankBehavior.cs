@@ -45,9 +45,12 @@ public class TileBankBehavior : MonoBehaviour {
 	private void SetUpTiles() {
 		this.tileBehaviors = new List<TileBehavior>();
 
+		int i = 0;
 		foreach (Tile t in this.tiles) {
 			GameObject gameObj = new GameObject("Tile Behavior");
 			gameObj.transform.SetParent(transform);
+			gameObj.transform.localPosition = new Vector2(0, GameCellBehavior.TILE_SIZE * i);
+			i += 2;
 			TileBehavior beh = gameObj.AddComponent<TileBehavior>();
 			this.tileBehaviors.Add(beh);
 			beh.SetUpWithGamePiece(t);
