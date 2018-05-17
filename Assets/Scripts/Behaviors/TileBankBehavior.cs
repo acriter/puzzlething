@@ -1,45 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SimpleJSON;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 
 public class TileBankBehavior : MonoBehaviour {
 	public List<TileBehavior> tileBehaviors;
-	public List<Tile> tiles;
+	private TileBank tileBank;
+	private List<Tile> tiles {
+		get {
+			return this.tileBank.tiles;
+		}
+	}
 
 	public void Start() {
 	}
 
 	public void InitializeWithLevel(string levelName) {
-		this.tiles = new List<Tile>();
+		this.tileBank = new TileBank();
+		bool fileExists = tileBank.InitializeWithLevel(levelName);
 
-		string path = "Assets/Resources/" + levelName + ".json";
-		if (!File.Exists(path)) {
-			Debug.LogWarning("couldn't find path " + path);
+		if (!fileExists) {
 			this.SetUpMockTiles();
-			return;
+		} else {
+			this.SetUpTiles();
 		}
-
-		StreamReader reader = new StreamReader(path); 
-		string jsonText = reader.ReadToEnd();
-		reader.Close();
-		JSONNode node = JSON.Parse(jsonText);
-		foreach (JSONNode tile in node["tiles"]) {
-			Tile t = new Tile();
-
-			foreach (JSONNode square in tile) {
-				Coordinate coord = new Coordinate();
-				coord.row = square["row"];
-				coord.column = square["column"];
-				GameCell cell = GameCell.GameCellFromJSONNode(square);
-				t.squareInfo.Add(coord, cell);
-			}
-			this.tiles.Add(t);
-		}
-
-		this.SetUpTiles();
 	}
 
 	private void SetUpTiles() {
@@ -47,10 +31,20 @@ public class TileBankBehavior : MonoBehaviour {
 
 		int i = 0;
 		foreach (Tile t in this.tiles) {
+			GameObject obj = Resources.Load("Prefabs/TileContainer") as GameObject;
+			GameObject tileContainer = GameObject.Instantiate(obj);
+			tileContainer.transform.SetParent(transform);
+			RectTransform rt = tileContainer.GetComponent<RectTransform>();
+			RectTransform ourRect = this.GetComponent<RectTransform>();
+			float width = Screen.width * ourRect.anchorMax.x;
+			float height = rt.sizeDelta.y;
+			rt.sizeDelta = new Vector2(width, height);
+			tileContainer.transform.localPosition = new Vector2(0, (height + 10) * i);
+
 			GameObject gameObj = new GameObject("Tile Behavior");
-			gameObj.transform.SetParent(transform);
-			gameObj.transform.localPosition = new Vector2(0, GameCellBehavior.TILE_SIZE * i);
-			i += 2;
+			gameObj.transform.SetParent(tileContainer.transform);
+			gameObj.transform.localPosition = new Vector2(0, 0);
+			i++;
 			TileBehavior beh = gameObj.AddComponent<TileBehavior>();
 			this.tileBehaviors.Add(beh);
 			beh.SetUpWithGamePiece(t);
