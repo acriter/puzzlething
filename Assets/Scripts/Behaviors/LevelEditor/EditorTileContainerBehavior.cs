@@ -1,0 +1,35 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public interface ITileContainerOwnerDelegate {
+	void DidPressAddButton();
+	void DidPressDeleteButton(EditorTileContainerBehavior container);
+}
+
+public class EditorTileContainerBehavior : MonoBehaviour {
+	public Button addButton, deleteButton;
+	public ITileContainerOwnerDelegate owner;
+	private GridEditorBehavior gridBehavior;
+	private bool isEmpty = true;
+
+	public void AddButtonPressed() {
+		if (!this.isEmpty) {
+			return;
+		}
+
+		CanvasGroup addButtonCanvas = this.addButton.GetComponent<CanvasGroup>();
+		addButtonCanvas.alpha = 0;
+
+		CanvasGroup deleteButtonCanvas = this.deleteButton.GetComponent<CanvasGroup>();
+		deleteButtonCanvas.alpha = 1;
+	}
+
+	public void DeleteButtonPressed() {
+		if (this.owner != null) {
+			this.owner.DidPressDeleteButton(this);
+		}
+		GameObject.Destroy(this.gameObject);
+	}
+}

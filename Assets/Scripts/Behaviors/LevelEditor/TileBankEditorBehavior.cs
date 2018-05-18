@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class TileBankEditorBehavior : MonoBehaviour {
 
+	public List<EditorTileContainerBehavior> tileContainers;
+
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		this.tileContainers = new List<EditorTileContainerBehavior>();	
 	}
 }

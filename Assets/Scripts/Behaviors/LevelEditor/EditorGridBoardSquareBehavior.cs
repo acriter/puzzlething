@@ -8,8 +8,10 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 	//Only used in edit mode - is this square part of the puzzle?
 	public bool isActive;
 
-	public void OnPointerClick(PointerEventData pointerEventData) {
+	public void OnPointerClick(PointerEventData eventData) {
 		//Output to console the clicked GameObject's name and the following message. You can replace this with your own actions for when clicking the GameObject.
+		Vector2 clickPos = eventData.pressPosition;
+		Vector2 releaseLocalPos = transform.InverseTransformPoint(clickPos);
 		Debug.Log(name + " Game Object Clicked!");
 	}
 
