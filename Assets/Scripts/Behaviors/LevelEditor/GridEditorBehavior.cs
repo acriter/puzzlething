@@ -10,7 +10,7 @@ public interface INumberInputHandler {
 public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarModeInterface, INumberInputHandler {
 	public NumberInputBehavior numberInputBehavior;
 	private GameBoard gameBoard;
-	private Dictionary<Coordinate, GridBoardSquareBehavior> gameBoardDictionary;
+	private Dictionary<Coordinate, EditorGridBoardSquareBehavior> gameBoardDictionary;
 	private ToolbarMode toolbarMode;
 
 	private Coordinate currentlyEditedCoordinate = Coordinate.NullCoordinate();
@@ -33,7 +33,7 @@ public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarM
 		Coordinate clickedCoord = new Coordinate(x, y);
 		if (gameBoard.ContainsCoordinate(clickedCoord)) {
 			GameBoardSquare square = gameBoard.BoardMap[clickedCoord];
-			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[clickedCoord];
+			EditorGridBoardSquareBehavior squareBehavior = gameBoardDictionary[clickedCoord];
 
 			switch (toolbarMode) {
 				case ToolbarMode.Border:
@@ -66,7 +66,7 @@ public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarM
 	public void DidFinishTypingNumber(string number) {
 		if (!this.currentlyEditedCoordinate.Equals(Coordinate.NullCoordinate())) {
 			GameBoardSquare square = gameBoard.BoardMap[this.currentlyEditedCoordinate];
-			GridBoardSquareBehavior squareBehavior = gameBoardDictionary[this.currentlyEditedCoordinate];
+			EditorGridBoardSquareBehavior squareBehavior = gameBoardDictionary[this.currentlyEditedCoordinate];
 			int numValue;
 			if (number == "") {
 				numValue = 0;
@@ -88,7 +88,7 @@ public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarM
 
 	public void Start() {
 		int START_SIZE = 6;
-		this.gameBoardDictionary = new Dictionary<Coordinate, GridBoardSquareBehavior>();
+		this.gameBoardDictionary = new Dictionary<Coordinate, EditorGridBoardSquareBehavior>();
 
 		Dictionary<Coordinate, GameBoardSquare> gameBoardDict = new Dictionary<Coordinate, GameBoardSquare>();
 
@@ -108,12 +108,12 @@ public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarM
 	private void SetUpBoardSquares() {
 		float size = GameCellBehavior.TILE_SIZE;
 		foreach (Coordinate coord in this.gameBoard.BoardMap.Keys) {
-			GameObject obj = Resources.Load("Prefabs/GridBoardSquare") as GameObject;
+			GameObject obj = Resources.Load("Prefabs/EditorGridBoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
-			GridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<GridBoardSquareBehavior>();
+			EditorGridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<EditorGridBoardSquareBehavior>();
 
 			this.gameBoardDictionary.Add(coord, sqBehavior);
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];

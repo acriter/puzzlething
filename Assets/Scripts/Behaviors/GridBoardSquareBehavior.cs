@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 /* This class represents a coordinate (square) on the game board, and all the tiles/information on that coordinate */
 public class GridBoardSquareBehavior : MonoBehaviour {
 	public GameBoardSquare boardSquare;
 	List<GameCellBehavior> stackedGameCells;
-
-	//Only used in edit mode - is this square part of the puzzle?
-	public bool isActive;
 
 	public void Awake() {
 		//This is a list of the tiles that are on this square
@@ -56,18 +52,5 @@ public class GridBoardSquareBehavior : MonoBehaviour {
 			this.RemoveGameCell(cellBehaviorToDestroy);
 			Destroy(cellBehaviorToDestroy.gameObject);
 		}
-	}
-
-	//These are only used in edit mode (to show that this square will not be part of the puzzle)
-	public void Activate() {
-		CanvasGroup canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = 1f;
-		this.isActive = true;
-	}
-
-	public void Deactivate() {
-		CanvasGroup canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
-		canvasGroup.alpha = 0.1f;
-		this.isActive = false;
 	}
 }
