@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 
 /* This class represents an individual cell, i.e. one square and one member of a tile */
 /* It knows nothing about other cells that share the same coordinate; see GridBoardSquareBehavior */
-public class GameCellBehavior : MonoBehaviour {
+public class GameCellBehavior : MonoBehaviour, IHighlightableButtonOwnerDelegate {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 64;
 
 	public GameCell cell;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
-	public Button leftButton, rightButton, topButton, bottomButton;
+	public HighlightableButton leftButton, rightButton, topButton, bottomButton;
 	public Image backgroundImage;
 
 	public TileBehavior parentTile;
@@ -22,15 +22,18 @@ public class GameCellBehavior : MonoBehaviour {
 		this.InitializeWithGameCell(this.cell);
 	}
 
-	//TODO: do this
 	public void EnableCellEditing() {
-		//this.leftButton.interactable = true;
-		//this.rightButton.interactable = true;
-		//this.topButton.interactable = true;
-		//this.bottomButton.interactable = true;
+		this.leftButton.owner = this;
+		this.rightButton.owner = this;
+		this.topButton.owner = this;
+		this.bottomButton.owner = this;
+		this.leftButton.isSelectable = true;
+		this.rightButton.isSelectable = true;
+		this.topButton.isSelectable = true;
+		this.bottomButton.isSelectable = true;
 	}
 
-	public void PressedBorderButton(Button button) {
+	public void DidPressHighlightableButton(HighlightableButton button) {
 		if (button.Equals(this.leftButton)) {
 			this.cell.blockedLeft = !this.cell.blockedLeft;
 		} else if (button.Equals(this.rightButton)) {
@@ -47,7 +50,7 @@ public class GameCellBehavior : MonoBehaviour {
 	public void InitializeWithGameCell(GameCell topCell) {
 		this.cell = topCell;
 
-		Color c = bottomImage.color;
+		Color c = Color.black;
 		Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
 
 		if (topCell.blockedBottom) {

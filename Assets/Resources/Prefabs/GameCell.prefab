@@ -284,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0753142ed1f942ee8655c91ccf5b9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelectable: 1
   highlightedImage: {fileID: 0}
 --- !u!114 &114262131063666224
 MonoBehaviour:
@@ -301,10 +302,10 @@ MonoBehaviour:
   rightImage: {fileID: 114324848413900914}
   topImage: {fileID: 114661566901530314}
   bottomImage: {fileID: 114414494192354200}
-  leftButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  topButton: {fileID: 0}
-  bottomButton: {fileID: 0}
+  leftButton: {fileID: 114531663176187048}
+  rightButton: {fileID: 114223220587990658}
+  topButton: {fileID: 114400739249097080}
+  bottomButton: {fileID: 114445345106252906}
   backgroundImage: {fileID: 114845998018577344}
   parentTile: {fileID: 0}
 --- !u!114 &114324848413900914
@@ -399,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0753142ed1f942ee8655c91ccf5b9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelectable: 1
   highlightedImage: {fileID: 0}
 --- !u!114 &114414494192354200
 MonoBehaviour:
@@ -438,6 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0753142ed1f942ee8655c91ccf5b9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelectable: 1
   highlightedImage: {fileID: 0}
 --- !u!114 &114531663176187048
 MonoBehaviour:
@@ -450,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0753142ed1f942ee8655c91ccf5b9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelectable: 1
   highlightedImage: {fileID: 0}
 --- !u!114 &114547144736403338
 MonoBehaviour:

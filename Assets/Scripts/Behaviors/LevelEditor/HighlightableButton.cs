@@ -10,7 +10,7 @@ public interface IHighlightableButtonOwnerDelegate {
 
 public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 	private bool isSelected = false;
-	private bool isSelectable = true;
+	public bool isSelectable = true;
 	public Image highlightedImage;
 	private CanvasGroup canvasGroup;
 	public IHighlightableButtonOwnerDelegate owner;

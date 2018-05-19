@@ -7,7 +7,7 @@ public interface INumberInputHandler {
 	void DidFinishTypingNumber(string number);
 }
 
-public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarModeInterface, INumberInputHandler {
+public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface, INumberInputHandler {
 	public NumberInputBehavior numberInputBehavior;
 	private GameBoard gameBoard;
 	private Dictionary<Coordinate, EditorGridBoardSquareBehavior> gameBoardDictionary;
