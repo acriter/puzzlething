@@ -13,12 +13,34 @@ public class GameCellBehavior : MonoBehaviour {
 	public GameCell cell;
 	public Text text;
 	public Image leftImage, rightImage, topImage, bottomImage;
+	public Button leftButton, rightButton, topButton, bottomButton;
 	public Image backgroundImage;
 
 	public TileBehavior parentTile;
 
 	public void UpdateCell() {
 		this.InitializeWithGameCell(this.cell);
+	}
+
+	public void EnableCellEditing() {
+		//this.leftButton.interactable = true;
+		this.rightButton.interactable = true;
+		this.topButton.interactable = true;
+		this.bottomButton.interactable = true;
+	}
+
+	public void PressedBorderButton(Button button) {
+		if (button.Equals(this.leftButton)) {
+			this.cell.blockedLeft = !this.cell.blockedLeft;
+		} else if (button.Equals(this.rightButton)) {
+			this.cell.blockedRight = !this.cell.blockedRight;
+		} else if (button.Equals(this.topButton)) {
+			this.cell.blockedTop = !this.cell.blockedTop;
+		} else if (button.Equals(this.bottomButton)) {
+			this.cell.blockedBottom = !this.cell.blockedBottom;
+		}
+
+		this.UpdateCell();
 	}
 
 	public void InitializeWithGameCell(GameCell topCell) {

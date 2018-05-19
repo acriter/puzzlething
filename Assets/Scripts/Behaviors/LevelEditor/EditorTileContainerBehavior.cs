@@ -24,6 +24,8 @@ public class EditorTileContainerBehavior : MonoBehaviour {
 
 		CanvasGroup deleteButtonCanvas = this.deleteButton.GetComponent<CanvasGroup>();
 		deleteButtonCanvas.alpha = 1;
+
+		this.gridBehavior = this.gameObject.AddComponent<GridEditorBehavior>();
 	}
 
 	public void DeleteButtonPressed() {

@@ -6,18 +6,18 @@ using UnityEngine.UI;
 /* This class represents a coordinate (square) on the game board, and all the tiles/information on that coordinate */
 public class GridBoardSquareBehavior : MonoBehaviour {
 	public GameBoardSquare boardSquare;
-	List<GameCellBehavior> stackedGameCells;
+	protected List<GameCellBehavior> stackedGameCells;
 
 	public void Awake() {
 		//This is a list of the tiles that are on this square
 		this.stackedGameCells = new List<GameCellBehavior>();
 	}
 
-	public void AddGameCell(GameCellBehavior cell) {
+	public virtual void AddGameCell(GameCellBehavior cell) {
 		this.stackedGameCells.Add(cell);
 	}
 
-	public void RemoveGameCell(GameCellBehavior cell) {
+	public virtual void RemoveGameCell(GameCellBehavior cell) {
 		this.stackedGameCells.Remove(cell);
 	}
 

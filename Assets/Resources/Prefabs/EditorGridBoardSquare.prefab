@@ -163,6 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e59356be22455486eb40d999e8342824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftBorder: {fileID: 0}
+  rightBorder: {fileID: 0}
+  topBorder: {fileID: 0}
+  bottomBorder: {fileID: 0}
   isActive: 0
 --- !u!114 &114644579046144976
 MonoBehaviour:

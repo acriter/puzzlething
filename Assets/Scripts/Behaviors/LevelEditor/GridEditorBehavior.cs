@@ -102,7 +102,9 @@ public class GridEditorBehavior : MonoBehaviour, IPointerClickHandler, IToolbarM
 			
 		this.gameBoard = new GameBoard(gameBoardDict);
 		this.SetUpBoardSquares();
-		this.numberInputBehavior.inputDelegate = this;
+		if (this.numberInputBehavior != null) {
+			this.numberInputBehavior.inputDelegate = this;
+		}
 	}
 
 	private void SetUpBoardSquares() {
