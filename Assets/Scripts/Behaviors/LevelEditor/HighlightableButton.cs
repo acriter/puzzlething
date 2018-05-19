@@ -4,12 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public interface IHighlightableButtonOwnerDelegate {
+	void DidPressHighlightableButton(HighlightableButton button);
+}
+
 public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 	private bool isSelected = false;
 	private bool isSelectable = true;
 	public Image highlightedImage;
 	private CanvasGroup canvasGroup;
+	public IHighlightableButtonOwnerDelegate owner;
 	private Color finishedColor = new Color(199f/255f, 151f/255f, 181f/255f, 0.5f);
+	private Color downColor = new Color(199f/255f, 151f/255f, 181f/255f, 0.8f);
 
 	void Start() {
 		this.canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
@@ -35,14 +41,18 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 		if (!this.isSelectable) {
 			return;
 		}
-		Debug.Log("up!");
+
+		this.StopAllCoroutines();
+		this.StartCoroutine(TweenToColor(a: Color.clear));
 	}
 
 	public void OnPointerDown(PointerEventData eventData) {
 		if (!this.isSelectable) {
 			return;
 		}
-		Debug.Log("down!");
+
+		this.StopAllCoroutines();
+		this.StartCoroutine(TweenToColor(a: this.downColor));
 	}
 
 	public void OnPointerExit(PointerEventData eventData) {
@@ -58,7 +68,10 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 		if (!this.isSelectable) {
 			return;
 		}
-		Debug.Log("click!");
+
+		if (this.owner != null) {
+			this.owner.DidPressHighlightableButton(this);
+		}
 	}
 
 	private IEnumerator TweenToColor(Color a) {
