@@ -9,7 +9,7 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 	private bool isSelectable = true;
 	public Image highlightedImage;
 	private CanvasGroup canvasGroup;
-	private Color finishedColor = new Color(188f/255f, 98f/255f, 181f/255f, 0.5f);
+	private Color finishedColor = new Color(199f/255f, 151f/255f, 181f/255f, 0.5f);
 
 	void Start() {
 		this.canvasGroup = this.gameObject.GetComponent<CanvasGroup>();
@@ -26,7 +26,8 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 		if (!this.isSelectable) {
 			return;
 		}
-
+			
+		this.StopAllCoroutines();
 		this.StartCoroutine(TweenToColor(a: this.finishedColor));
 	}
 
@@ -48,7 +49,9 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 		if (!this.isSelectable) {
 			return;
 		}
-		Debug.Log("exit!");
+
+		this.StopAllCoroutines();
+		this.StartCoroutine(TweenToColor(a: Color.clear));
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {
@@ -61,7 +64,7 @@ public class HighlightableButton : MonoBehaviour, IPointerUpHandler, IPointerDow
 	private IEnumerator TweenToColor(Color a) {
 		float elapsedTime = 0f;
 		float totalTime = 0.15f;
-		Color startingColor = Color.clear;
+		Color startingColor = this.highlightedImage.color;
 		while (elapsedTime < totalTime) {
 			float t = elapsedTime / totalTime;
 			this.highlightedImage.color = Color.Lerp(startingColor, a, 2 * t * t * (3f - 2.5f * t));

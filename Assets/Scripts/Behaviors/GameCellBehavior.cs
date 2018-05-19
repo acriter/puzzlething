@@ -22,11 +22,12 @@ public class GameCellBehavior : MonoBehaviour {
 		this.InitializeWithGameCell(this.cell);
 	}
 
+	//TODO: do this
 	public void EnableCellEditing() {
 		//this.leftButton.interactable = true;
-		this.rightButton.interactable = true;
-		this.topButton.interactable = true;
-		this.bottomButton.interactable = true;
+		//this.rightButton.interactable = true;
+		//this.topButton.interactable = true;
+		//this.bottomButton.interactable = true;
 	}
 
 	public void PressedBorderButton(Button button) {
