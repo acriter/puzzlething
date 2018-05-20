@@ -29,7 +29,8 @@ public class NumberInputBehavior : MonoBehaviour {
 		};
 	}
 
-	public void Show() {
+	public void Show(string startingNumber = "") {
+		this.inputField.text = startingNumber;
 		this.canvasGroup.blocksRaycasts = true;
 		this.StartCoroutine(FadeInOut(fadeIn:true));
 	}

@@ -29,7 +29,8 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 			if (this.boardSquare.TopCell != null) {
 				NumberInputBehavior input = GameObject.FindObjectOfType<NumberInputBehavior>();
 				if (input != null) {
-					input.Show();
+					input.inputDelegate = this;
+					input.Show(boardSquare.TopCell.displayedNumber == 0 ? "" : "" + boardSquare.TopCell.displayedNumber);
 				}
 			}
 		} else if (eventData.button == PointerEventData.InputButton.Left) {

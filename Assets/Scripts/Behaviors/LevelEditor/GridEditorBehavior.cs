@@ -39,9 +39,6 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 			
 		this.gameBoard = new GameBoard(gameBoardDict);
 		this.SetUpBoardSquares();
-		if (this.numberInputBehavior != null) {
-			this.numberInputBehavior.inputDelegate = this;
-		}
 	}
 
 	private void SetUpBoardSquares() {
