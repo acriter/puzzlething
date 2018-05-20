@@ -4,28 +4,49 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerClickHandler {
+public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerClickHandler, INumberInputHandler {
 
 	//Only used in edit mode - is this square part of the puzzle?
 	public bool isActive;
 
-	public void OnPointerClick(PointerEventData eventData) {
-		if (!this.isActive) {
-			this.Activate();
-			if (this.boardSquare.TopCell == null) {
-				GameCell cell = new GameCell();
-				this.boardSquare.AddGameCell(cell);
-				this.Initialize(this.boardSquare);
-			}
-		} else if (this.boardSquare.TopCell != null) {
-			this.boardSquare.RemoveGameCell(this.boardSquare.TopCell);
+	public void DidFinishTypingNumber(string number) {
+		int numValue;
+		if (number == "") {
+			numValue = 0;
+		} else {
+			numValue = int.Parse(number);
+		}
+		if (boardSquare.TopCell != null) {
+			boardSquare.TopCell.displayedNumber = numValue;
 			this.UpdateSquare();
 		} else {
-			this.Deactivate();
+			Debug.Log("there was no top cell...");
 		}
-		Vector2 clickPos = eventData.pressPosition;
-		Vector2 releaseLocalPos = transform.InverseTransformPoint(clickPos);
-		Debug.Log(name + " Game Object Clicked!");
+	}
+
+	public void OnPointerClick(PointerEventData eventData) {
+		if (eventData.button == PointerEventData.InputButton.Right) {
+			if (this.boardSquare.TopCell != null) {
+				NumberInputBehavior input = GameObject.FindObjectOfType<NumberInputBehavior>();
+				if (input != null) {
+					input.Show();
+				}
+			}
+		} else if (eventData.button == PointerEventData.InputButton.Left) {
+			if (!this.isActive) {
+				this.Activate();
+				if (this.boardSquare.TopCell == null) {
+					GameCell cell = new GameCell();
+					this.boardSquare.AddGameCell(cell);
+					this.Initialize(this.boardSquare);
+				}
+			} else if (this.boardSquare.TopCell != null) {
+				this.boardSquare.RemoveGameCell(this.boardSquare.TopCell);
+				this.UpdateSquare();
+			} else {
+				this.Deactivate();
+			}
+		}
 	}
 
 	public override void AddGameCell(GameCellBehavior cell) {
