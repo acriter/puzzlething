@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 /* It knows nothing about other cells that share the same coordinate; see GridBoardSquareBehavior */
 public class GameCellBehavior : MonoBehaviour, IHighlightableButtonOwnerDelegate {
 	//TODO: move this somewhere better
-	public static int TILE_SIZE = 64;
+	public static int TILE_SIZE = 128;
 
 	public GameCell cell;
 	public Text text;
