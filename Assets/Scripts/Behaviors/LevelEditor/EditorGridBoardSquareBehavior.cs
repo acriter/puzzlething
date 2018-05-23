@@ -13,6 +13,13 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 	//Only used in edit mode - is this square part of the puzzle?
 	public bool isActive;
 
+	//need to also use these board squares for 
+	private bool miniSize = false;
+
+	public void ConfigureWithSize(bool mini) {
+		this.miniSize = mini;
+	}
+
 	public void DidFinishTypingNumber(string number) {
 		int numValue;
 		if (number == "") {
@@ -26,6 +33,12 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 		} else {
 			Debug.Log("there was no top cell...");
 		}
+	}
+
+	protected override Vector2 ScaleForGameCell() {
+		float size = this.miniSize ? GameCellBehavior.MINI_TILE_SIZE : GameCellBehavior.TILE_SIZE; 
+		return Vector2.one;
+		return new Vector2(size / GameCellBehavior.TILE_SIZE, size / GameCellBehavior.TILE_SIZE);
 	}
 
 	public void OnPointerClick(PointerEventData eventData) {

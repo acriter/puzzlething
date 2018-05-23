@@ -10,7 +10,6 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 	private Dictionary<Coordinate, GridBoardSquareBehavior> gameBoardDictionary;
 	public ITileDroppedDelegate dropTileDelegate;
 	private GameObject currentlyDraggedObj;
-	
 
 	public void Start() {
 	}

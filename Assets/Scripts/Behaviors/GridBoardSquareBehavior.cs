@@ -21,6 +21,10 @@ public class GridBoardSquareBehavior : MonoBehaviour {
 		this.stackedGameCells.Remove(cell);
 	}
 
+	protected virtual Vector2 ScaleForGameCell() {
+		return Vector2.one;
+	}
+
 	public void Initialize(GameBoardSquare square) {
 		this.boardSquare = square;
 		GameCell topCell = square.TopCell;
@@ -30,6 +34,7 @@ public class GridBoardSquareBehavior : MonoBehaviour {
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = Vector2.zero;
+			instantiatedObj.transform.localScale = this.ScaleForGameCell();
 
 			GameCellBehavior cellBehavior = instantiatedObj.GetComponent<GameCellBehavior>();
 			cellBehavior.InitializeWithGameCell(topCell);
