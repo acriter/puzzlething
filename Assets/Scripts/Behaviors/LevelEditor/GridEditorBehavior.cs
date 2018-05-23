@@ -50,7 +50,6 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
 			EditorGridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<EditorGridBoardSquareBehavior>();
-			sqBehavior.ConfigureWithSize(this.miniSize);
 
 			this.gameBoardDictionary.Add(coord, sqBehavior);
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
