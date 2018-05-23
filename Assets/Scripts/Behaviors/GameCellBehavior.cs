@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class GameCellBehavior : MonoBehaviour, IHighlightableButtonOwnerDelegate {
 	//TODO: move this somewhere better
 	public static int TILE_SIZE = 128;
+	public static int MINI_TILE_SIZE = 48;
 
 	public GameCell cell;
 	public Text text;

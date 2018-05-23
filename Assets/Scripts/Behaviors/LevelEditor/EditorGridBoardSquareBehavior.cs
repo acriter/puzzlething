@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public interface INumberInputHandler {
+	void DidFinishTypingNumber(string number);
+}
+
 public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerClickHandler, INumberInputHandler {
 
 	//Only used in edit mode - is this square part of the puzzle?

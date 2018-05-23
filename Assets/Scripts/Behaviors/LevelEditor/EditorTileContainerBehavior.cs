@@ -19,6 +19,10 @@ public class EditorTileContainerBehavior : MonoBehaviour {
 			return;
 		}
 
+		if (this.owner != null) {
+			this.owner.DidPressAddButton(this);
+		}
+
 		CanvasGroup addButtonCanvas = this.addButton.GetComponent<CanvasGroup>();
 		addButtonCanvas.alpha = 0;
 
@@ -26,6 +30,7 @@ public class EditorTileContainerBehavior : MonoBehaviour {
 		deleteButtonCanvas.alpha = 1;
 
 		this.gridBehavior = this.gameObject.AddComponent<GridEditorBehavior>();
+		this.gridBehavior.ConfigureWithSize(4, true);
 	}
 
 	public void DeleteButtonPressed() {

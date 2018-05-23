@@ -22,7 +22,7 @@ public class TileBankEditorBehavior : MonoBehaviour, ITileContainerOwnerDelegate
 		GameObject tileContainer = GameObject.Instantiate(containerObj);
 		tileContainer.transform.SetParent(this.transform);
 		tileContainer.transform.localPosition = this.PositionForNewContainer();
-		EditorTileContainerBehavior tileContainerBehavior = containerObj.GetComponent<EditorTileContainerBehavior>();
+		EditorTileContainerBehavior tileContainerBehavior = tileContainer.GetComponent<EditorTileContainerBehavior>();
 		tileContainerBehavior.owner = this;
 		this.tileContainers.Add(tileContainerBehavior);
 	}
@@ -33,6 +33,7 @@ public class TileBankEditorBehavior : MonoBehaviour, ITileContainerOwnerDelegate
 	}
 
 	public void DidPressDeleteButton(EditorTileContainerBehavior container) {
-		Debug.Log("deleted");
+		this.tileContainers.Remove(container);
+		this.AddNewContainer();
 	}
 }

@@ -3,34 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public interface INumberInputHandler {
-	void DidFinishTypingNumber(string number);
-}
-
 public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 	public NumberInputBehavior numberInputBehavior;
 	private GameBoard gameBoard;
 	private Dictionary<Coordinate, EditorGridBoardSquareBehavior> gameBoardDictionary;
-	private ToolbarMode toolbarMode;
-
-	private Coordinate currentlyEditedCoordinate = Coordinate.NullCoordinate();
 
 	private GameObject currentlyDraggedObj;
 
+	private bool miniSize = false;
+	private int gridCount = 6;
+
 	public void DidSwitchToMode(ToolbarMode mode) {
-		this.currentlyEditedCoordinate = Coordinate.NullCoordinate();
-		toolbarMode = mode;
 		Debug.Log("switched to mode " + mode);
 	}
 
+	public void ConfigureWithSize(int size, bool mini) {
+		this.gridCount = size;
+		this.miniSize = mini;
+	}
+
 	public void Start() {
-		int START_SIZE = 6;
 		this.gameBoardDictionary = new Dictionary<Coordinate, EditorGridBoardSquareBehavior>();
 
 		Dictionary<Coordinate, GameBoardSquare> gameBoardDict = new Dictionary<Coordinate, GameBoardSquare>();
 
-		for (int i = 0; i < START_SIZE; ++i) {
-			for (int j = 0; j < START_SIZE; ++j) {
+		for (int i = 0; i < this.gridCount; ++i) {
+			for (int j = 0; j < this.gridCount; ++j) {
 				Coordinate coord = new Coordinate(i, j);
 				GameBoardSquare square = new GameBoardSquare(coord);
 				gameBoardDict.Add(coord, square);
@@ -42,10 +40,12 @@ public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 	}
 
 	private void SetUpBoardSquares() {
-		float size = GameCellBehavior.TILE_SIZE;
+		float size = this.miniSize ? GameCellBehavior.MINI_TILE_SIZE : GameCellBehavior.TILE_SIZE;
 		foreach (Coordinate coord in this.gameBoard.BoardMap.Keys) {
 			GameObject obj = Resources.Load("Prefabs/EditorGridBoardSquare") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
+			
+			instantiatedObj.transform.localScale = new Vector2(size / GameCellBehavior.TILE_SIZE, size / GameCellBehavior.TILE_SIZE);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
 
