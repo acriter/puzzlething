@@ -57,7 +57,7 @@ public class GameBoard {
 	}
 
 	public JSONNode ToJson() {
-		JSONNode node = new JSONObject();
+		JSONArray parentNode = new JSONArray();
 		foreach (KeyValuePair<Coordinate, GameBoardSquare> kvp in this.boardMap) {
 			if (kvp.Value.TopCell == null) {
 				continue;
@@ -66,13 +66,13 @@ public class GameBoard {
 			newNode["row"] = kvp.Key.row;
 			newNode["column"] = kvp.Key.column;
 			newNode["number"] = kvp.Value.TopCell.displayedNumber;
-			newNode["blockedBottom"] = true;
-			newNode["blockedTop"] = true;
-			newNode["blockedLeft"] = true;
-			newNode["blockedRight"] = true;
-			node.Add(newNode);
+			newNode["blockedBottom"] = kvp.Value.TopCell.blockedBottom;
+			newNode["blockedTop"] = kvp.Value.TopCell.blockedTop;
+			newNode["blockedLeft"] = kvp.Value.TopCell.blockedLeft;
+			newNode["blockedRight"] = kvp.Value.TopCell.blockedRight;
+			parentNode[-1] = newNode;
 		}
-		return node;
+		return parentNode;
 	}
 
 	public void MoveTileToSquare(Tile t, Coordinate coord) {

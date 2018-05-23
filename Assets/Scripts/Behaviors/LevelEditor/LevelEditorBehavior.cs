@@ -14,16 +14,20 @@ public class LevelEditorBehavior : MonoBehaviour {
 		JSONNode boardNode = this.mainBoard.gameBoard.ToJson();
 		parentNode["squares"] = boardNode;
 
-		JSONNode tilesNode = new JSONObject();
+		JSONArray tilesNode = new JSONArray();
 		foreach (EditorTileContainerBehavior tileContainer in tileBank.tileContainers) {
-			JSONNode tileNode = tileContainer.gridBehavior.gameBoard.ToJson();
-			tilesNode.Add(tileNode);
+			GridEditorBehavior grid = tileContainer.gridBehavior;
+			if (grid != null) {
+				JSONNode tileNode = grid.gameBoard.ToJson();
+				tilesNode[-1] = tileNode;
+			}
 		}
 
 		parentNode["tiles"] = tilesNode;
 
 		string path = "Assets/Resources/" + "test" + ".json";
-		StreamWriter reader = new StreamWriter(path, append: false);
-		reader.Write(parentNode.ToString());
+		StreamWriter writer = new StreamWriter(path, append: false);
+		writer.WriteLine(parentNode.ToString());
+		writer.Close();
 	}
 }
