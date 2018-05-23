@@ -20,7 +20,7 @@ public class EditorTileContainerBehavior : MonoBehaviour {
 		}
 
 		if (this.owner != null) {
-			this.owner.DidPressAddButton(this);
+			this.owner.DidPressAddButton();
 		}
 
 		CanvasGroup addButtonCanvas = this.addButton.GetComponent<CanvasGroup>();

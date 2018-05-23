@@ -13,8 +13,12 @@ public class TileBankEditorBehavior : MonoBehaviour, ITileContainerOwnerDelegate
 		this.AddNewContainer();
 	}
 
+	private Vector2 PositionForContainer(int i) {
+		return new Vector2(0, i * CONTAINER_HEIGHT);
+	}
+
 	private Vector2 PositionForNewContainer() {
-		return new Vector2(0, this.tileContainers.Count * CONTAINER_HEIGHT);
+		return this.PositionForContainer(this.tileContainers.Count);
 	}
 
 	private void AddNewContainer() {
@@ -27,6 +31,7 @@ public class TileBankEditorBehavior : MonoBehaviour, ITileContainerOwnerDelegate
 		this.tileContainers.Add(tileContainerBehavior);
 	}
 
+
 	//Interface methods
 	public void DidPressAddButton() {
 		this.AddNewContainer();		
@@ -34,6 +39,12 @@ public class TileBankEditorBehavior : MonoBehaviour, ITileContainerOwnerDelegate
 
 	public void DidPressDeleteButton(EditorTileContainerBehavior container) {
 		this.tileContainers.Remove(container);
-		this.AddNewContainer();
+		for (int i = 0; i < this.tileContainers.Count; ++i) {
+			this.tileContainers[i].transform.localPosition = this.PositionForContainer(i);
+		}
+
+		if (this.tileContainers.Count == 0) {
+			this.AddNewContainer();
+		}
 	}
 }
