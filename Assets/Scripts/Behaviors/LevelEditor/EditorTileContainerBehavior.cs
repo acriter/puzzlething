@@ -11,7 +11,7 @@ public interface ITileContainerOwnerDelegate {
 public class EditorTileContainerBehavior : MonoBehaviour {
 	public Button addButton, deleteButton;
 	public ITileContainerOwnerDelegate owner;
-	private GridEditorBehavior gridBehavior;
+	public GridEditorBehavior gridBehavior;
 	private bool isEmpty = true;
 
 	public void AddButtonPressed() {

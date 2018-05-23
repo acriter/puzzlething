@@ -56,6 +56,25 @@ public class GameBoard {
 		return boardMap.ContainsKey(coord);
 	}
 
+	public JSONNode ToJson() {
+		JSONNode node = new JSONObject();
+		foreach (KeyValuePair<Coordinate, GameBoardSquare> kvp in this.boardMap) {
+			if (kvp.Value.TopCell == null) {
+				continue;
+			}
+			JSONNode newNode = new JSONObject();
+			newNode["row"] = kvp.Key.row;
+			newNode["column"] = kvp.Key.column;
+			newNode["number"] = kvp.Value.TopCell.displayedNumber;
+			newNode["blockedBottom"] = true;
+			newNode["blockedTop"] = true;
+			newNode["blockedLeft"] = true;
+			newNode["blockedRight"] = true;
+			node.Add(newNode);
+		}
+		return node;
+	}
+
 	public void MoveTileToSquare(Tile t, Coordinate coord) {
 		if (this.tileMap.ContainsKey(t)) {
 			int tileRow = this.tileMap[t].row;

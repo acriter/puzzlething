@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class GridEditorBehavior : MonoBehaviour, IToolbarModeInterface {
 	public NumberInputBehavior numberInputBehavior;
-	private GameBoard gameBoard;
+	public GameBoard gameBoard;
 	private Dictionary<Coordinate, EditorGridBoardSquareBehavior> gameBoardDictionary;
 
 	private GameObject currentlyDraggedObj;
