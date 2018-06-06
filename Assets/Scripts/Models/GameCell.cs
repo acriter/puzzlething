@@ -18,6 +18,9 @@ public class GameCell {
 	//can be null if it's just part of the starting grid
 	public Tile parent;
 
+	//solid cells are the "greyed out" cells that must have another cell on top of them for the level to be clear.
+	public bool solid = true;
+
 	public bool blockedLeft = true;
 	public bool blockedTop = true;
 	public bool blockedRight = true;

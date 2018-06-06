@@ -30,7 +30,7 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 
 	public void OnPointerClick(PointerEventData eventData) {
 		if (eventData.button == PointerEventData.InputButton.Right) {
-			if (this.boardSquare.TopCell != null) {
+			if (this.boardSquare.TopCell != null && this.boardSquare.TopCell.solid) {
 				NumberInputBehavior input = GameObject.FindObjectOfType<NumberInputBehavior>();
 				if (input != null) {
 					input.inputDelegate = this;
@@ -45,10 +45,12 @@ public class EditorGridBoardSquareBehavior : GridBoardSquareBehavior, IPointerCl
 					this.boardSquare.AddGameCell(cell);
 					this.Initialize(this.boardSquare);
 				}
-			} else if (this.boardSquare.TopCell != null) {
-				this.boardSquare.RemoveGameCell(this.boardSquare.TopCell);
+			} else if (this.boardSquare.TopCell.solid) {
+				this.boardSquare.TopCell.solid = false;
 				this.UpdateSquare();
 			} else {
+				this.boardSquare.RemoveGameCell(this.boardSquare.TopCell);
+				this.UpdateSquare();
 				this.Deactivate();
 			}
 		}

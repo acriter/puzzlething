@@ -70,6 +70,7 @@ public class GameBoard {
 			newNode["blockedTop"] = kvp.Value.TopCell.blockedTop;
 			newNode["blockedLeft"] = kvp.Value.TopCell.blockedLeft;
 			newNode["blockedRight"] = kvp.Value.TopCell.blockedRight;
+			newNode["solid"] = kvp.Value.TopCell.solid;
 			parentNode[-1] = newNode;
 		}
 		return parentNode;
@@ -97,7 +98,7 @@ public class GameBoard {
 
 	public bool PlayWasVictorious() {
 		foreach (Coordinate coordinate in boardMap.Keys) {
-			if (boardMap[coordinate].TopCell == null) {
+			if (boardMap[coordinate].TopCell == null || !boardMap[coordinate].TopCell.solid) {
 				return false;
 			}
 

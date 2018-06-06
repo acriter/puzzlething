@@ -25,7 +25,6 @@ public class GridBoardSquareBehavior : MonoBehaviour {
 		this.boardSquare = square;
 		GameCell topCell = square.TopCell;
 		if (topCell != null) {
-			//TODO: code is copied from TileBehavior
 			GameObject obj = Resources.Load("Prefabs/GameCell") as GameObject;
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);

@@ -51,6 +51,9 @@ public class GameCellBehavior : MonoBehaviour, IHighlightableButtonOwnerDelegate
 	public void InitializeWithGameCell(GameCell topCell) {
 		this.cell = topCell;
 
+		CanvasGroup canvasGroup = this.GetComponent<CanvasGroup>();
+		canvasGroup.alpha = topCell.solid ? 1 : 0;
+
 		Color c = Color.black;
 		Color alphaColor = new Color(c.r, c.g, c.b, 0.3f);
 
