@@ -98,12 +98,12 @@ public class GameBoard {
 
 	public bool PlayWasVictorious() {
 		foreach (Coordinate coordinate in boardMap.Keys) {
-			if (boardMap[coordinate].TopCell == null || !boardMap[coordinate].TopCell.solid) {
+			if (boardMap[coordinate].TopCell == null) {
 				return false;
 			}
 
 			//TODO: really slow - counts each coordinate in each area instead of just checking each area
-			if (!this.AreaForSquare(coordinate).MeetsCriteria()) {
+			if (boardMap[coordinate].TopCell.solid && !this.AreaForSquare(coordinate).MeetsCriteria()) {
 				Debug.Log("coordinate (" + coordinate.row + ", " + coordinate.column + ") does not meet criteria!");
 				return false;
 			}
@@ -144,7 +144,7 @@ public class GameBoard {
 				if (!nextCell.blockedLeft) {
 					Coordinate left = new Coordinate(x - 1, y);
 					if (this.ContainsCoordinate(left)) {
-						if (this.BoardMap[left].TopCell != null && !this.BoardMap[left].TopCell.blockedRight && !exploredCoordinates.Contains(left)) {
+						if (this.BoardMap[left].TopCell != null && this.BoardMap[left].TopCell.solid && !this.BoardMap[left].TopCell.blockedRight && !exploredCoordinates.Contains(left)) {
 							x = x - 1;
 							nextCoordinate = left;
 							foundNextCell = true;
@@ -154,7 +154,7 @@ public class GameBoard {
 				if (!nextCell.blockedBottom && !foundNextCell) {
 					Coordinate bottom = new Coordinate(x, y - 1);
 					if (this.ContainsCoordinate(bottom)) {
-						if (this.BoardMap[bottom].TopCell != null && !this.BoardMap[bottom].TopCell.blockedTop && !exploredCoordinates.Contains(bottom)) {
+						if (this.BoardMap[bottom].TopCell != null && this.BoardMap[bottom].TopCell.solid && !this.BoardMap[bottom].TopCell.blockedTop && !exploredCoordinates.Contains(bottom)) {
 							y = y - 1;
 							nextCoordinate = bottom;
 							foundNextCell = true;
@@ -164,7 +164,7 @@ public class GameBoard {
 				if (!nextCell.blockedRight && !foundNextCell) {
 					Coordinate right = new Coordinate(x + 1, y);
 					if (this.ContainsCoordinate(right)) {
-						if (this.BoardMap[right].TopCell != null && !this.BoardMap[right].TopCell.blockedLeft && !exploredCoordinates.Contains(right)) {
+						if (this.BoardMap[right].TopCell != null && this.BoardMap[right].TopCell.solid && !this.BoardMap[right].TopCell.blockedLeft && !exploredCoordinates.Contains(right)) {
 							x = x + 1;
 							nextCoordinate = right;
 							foundNextCell = true;
@@ -174,7 +174,7 @@ public class GameBoard {
 				if (!nextCell.blockedTop && !foundNextCell) {
 					Coordinate top = new Coordinate(x, y + 1);
 					if (this.ContainsCoordinate(top)) {
-						if (this.BoardMap[top].TopCell != null && !this.BoardMap[top].TopCell.blockedBottom && !exploredCoordinates.Contains(top)) {
+						if (this.BoardMap[top].TopCell != null && this.BoardMap[top].TopCell.solid && !this.BoardMap[top].TopCell.blockedBottom && !exploredCoordinates.Contains(top)) {
 							y = y + 1;
 							nextCoordinate = top;
 							foundNextCell = true;

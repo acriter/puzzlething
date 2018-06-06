@@ -10,6 +10,11 @@ public class GameCell {
 		gameCell.blockedLeft = node["blockedLeft"];
 		gameCell.blockedRight = node["blockedRight"];
 		gameCell.displayedNumber = node["number"];
+		if (node["solid"] != null) {
+			gameCell.solid = node["solid"];
+		} else {
+			gameCell.solid = true;
+		}
 		return gameCell;
 	}
 
