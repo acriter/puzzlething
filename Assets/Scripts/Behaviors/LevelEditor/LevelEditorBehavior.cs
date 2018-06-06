@@ -25,7 +25,12 @@ public class LevelEditorBehavior : MonoBehaviour {
 
 		parentNode["tiles"] = tilesNode;
 
-		string path = "Assets/Resources/" + "test" + ".json";
+		int i = 1;
+		string path = "";
+		do {
+			path = "Assets/Resources/" + i + ".json";
+			++i;
+		} while (File.Exists(path));
 		StreamWriter writer = new StreamWriter(path, append: false);
 		writer.WriteLine(parentNode.ToString());
 		writer.Close();
