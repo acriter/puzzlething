@@ -34,8 +34,7 @@ public class TileBankBehavior : MonoBehaviour {
 			Canvas canvas = GameObject.FindObjectOfType<Canvas>();
 			Vector3 canvasScale = canvas.transform.localScale;
 			GameObject obj = Resources.Load("Prefabs/TileContainer") as GameObject;
-			GameObject tileContainer = GameObject.Instantiate(obj);
-			tileContainer.transform.SetParent(transform);
+			GameObject tileContainer = GameObject.Instantiate(obj, transform);
 			RectTransform rt = tileContainer.GetComponent<RectTransform>();
 			//RectTransform ourRect = this.GetComponent<RectTransform>();
 			//float width = Screen.width * ourRect.anchorMax.x;
