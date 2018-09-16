@@ -21,6 +21,7 @@ public class TileBehavior : DragHandler {
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(GameCellBehavior.TILE_SIZE * pair.row, GameCellBehavior.TILE_SIZE * pair.column);
+			instantiatedObj.transform.localScale = Vector3.one;
 
 			GameCellBehavior cellBehavior = instantiatedObj.GetComponent<GameCellBehavior>();
 			cellBehavior.InitializeWithGameCell(piece.squareInfo[pair]);

@@ -31,19 +31,23 @@ public class TileBankBehavior : MonoBehaviour {
 
 		int i = 0;
 		foreach (Tile t in this.tiles) {
+			Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+			Vector3 canvasScale = canvas.transform.localScale;
 			GameObject obj = Resources.Load("Prefabs/TileContainer") as GameObject;
 			GameObject tileContainer = GameObject.Instantiate(obj);
 			tileContainer.transform.SetParent(transform);
 			RectTransform rt = tileContainer.GetComponent<RectTransform>();
-			RectTransform ourRect = this.GetComponent<RectTransform>();
-			float width = Screen.width * ourRect.anchorMax.x;
+			//RectTransform ourRect = this.GetComponent<RectTransform>();
+			//float width = Screen.width * ourRect.anchorMax.x;
 			float height = rt.sizeDelta.y;
-			rt.sizeDelta = new Vector2(width, height);
-			tileContainer.transform.localPosition = new Vector2(0, (height + 10) * i);
+			//rt.sizeDelta = new Vector2(width, height);
+			tileContainer.transform.localPosition = new Vector3(0, (height + 10) * i);
+			tileContainer.transform.localScale = Vector3.one;
 
 			GameObject gameObj = new GameObject("Tile Behavior");
 			gameObj.transform.SetParent(tileContainer.transform);
 			gameObj.transform.localPosition = new Vector2(0, 0);
+			gameObj.transform.localScale = Vector3.one;
 			i++;
 			TileBehavior beh = gameObj.AddComponent<TileBehavior>();
 			this.tileBehaviors.Add(beh);

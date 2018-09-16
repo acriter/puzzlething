@@ -89,6 +89,7 @@ public class GridBehavior : MonoBehaviour, IDropHandler {
 			GameObject instantiatedObj = GameObject.Instantiate(obj);
 			instantiatedObj.transform.SetParent(transform);
 			instantiatedObj.transform.localPosition = new Vector2(coord.row * size, coord.column * size);
+			instantiatedObj.transform.localScale = Vector3.one;
 
 			GridBoardSquareBehavior sqBehavior = instantiatedObj.GetComponent<GridBoardSquareBehavior>();
 			GameBoardSquare sq = this.gameBoard.BoardMap[coord];
