@@ -14,6 +14,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 	public void OnBeginDrag(PointerEventData eventData) {
 		draggedItem = gameObject;
+		this.GetComponent<TileBehavior>().StartedBeingDragged();
 		startParent = transform.parent;
 		//for (int i = 0; i < startParent.childCount; ++i) {
 		//	if (startParent.GetChild(i) == transform) {
@@ -37,6 +38,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 	public void OnEndDrag(PointerEventData eventData) {
 		draggedItem = null;
+		this.GetComponent<TileBehavior>().StoppedBeingDragged();
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		if (transform.parent == canvas) {
 			transform.SetParent(startParent);
